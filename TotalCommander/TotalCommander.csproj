@@ -34,6 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -55,6 +60,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -77,6 +83,45 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DevExpress\" />
+    <Folder Include="GUI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\backIcon.png" />
+    <Content Include="Resources\cancel_32x32.png" />
+    <Content Include="Resources\copyIcon.png" />
+    <Content Include="Resources\copy_32x32.png" />
+    <Content Include="Resources\cutIcon.png" />
+    <Content Include="Resources\cut_32x32.png" />
+    <Content Include="Resources\deleteIcon.png" />
+    <Content Include="Resources\delete_16x16.png" />
+    <Content Include="Resources\delete_32x32.png" />
+    <Content Include="Resources\emailtemplate_16x16.png" />
+    <Content Include="Resources\emailtemplate_32x32.png" />
+    <Content Include="Resources\find_16x16.png" />
+    <Content Include="Resources\find_32x32.png" />
+    <Content Include="Resources\forwardIcon.png" />
+    <Content Include="Resources\Ionic.Zip.dll" />
+    <Content Include="Resources\listViewIcon.png" />
+    <Content Include="Resources\newIcon.png" />
+    <Content Include="Resources\notepadIcon.png" />
+    <Content Include="Resources\no_border_32x32.png" />
+    <Content Include="Resources\oneScreenIcon.png" />
+    <Content Include="Resources\packIcon.png" />
+    <Content Include="Resources\pasteIcon.png" />
+    <Content Include="Resources\paste_32x32.png" />
+    <Content Include="Resources\recurrence_32x32.png" />
+    <Content Include="Resources\recycleBinIcon.png" />
+    <Content Include="Resources\rename.ico" />
+    <Content Include="Resources\selecttable_32x32.png" />
+    <Content Include="Resources\show_32x32.png" />
+    <Content Include="Resources\sortasc_32x32.png" />
+    <Content Include="Resources\tilesViewIcon.png" />
+    <Content Include="Resources\twoScreenIcon.png" />
+    <Content Include="Resources\unpackIcon.png" />
+    <Content Include="Resources\upIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
