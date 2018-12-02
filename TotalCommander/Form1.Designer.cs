@@ -72,6 +72,7 @@ namespace TotalCommander
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitMain = new System.Windows.Forms.SplitContainer();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -103,9 +104,10 @@ namespace TotalCommander
             this.btnFind,
             this.btnReviewFind,
             this.barButtonItem2,
-            this.barButtonItem3});
+            this.barButtonItem3,
+            this.barButtonItem1});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 28;
+            this.ribbonControl1.MaxItemId = 29;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
@@ -210,23 +212,27 @@ namespace TotalCommander
             // 
             this.btnDelete.Caption = "Delete";
             this.btnDelete.Glyph = ((System.Drawing.Image)(resources.GetObject("btnDelete.Glyph")));
+            this.btnDelete.GlyphDisabled = ((System.Drawing.Image)(resources.GetObject("btnDelete.GlyphDisabled")));
             this.btnDelete.Id = 13;
             this.btnDelete.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnDelete.LargeGlyph")));
             this.btnDelete.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnRecycleDelete),
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnPermanentlyDelete)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnPermanentlyDelete),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barButtonItem1, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
             this.btnDelete.Name = "btnDelete";
             // 
             // btnRecycleDelete
             // 
             this.btnRecycleDelete.Caption = "Recycle";
             this.btnRecycleDelete.Id = 14;
+            this.btnRecycleDelete.ImageUri.Uri = "ExportToRTF";
             this.btnRecycleDelete.Name = "btnRecycleDelete";
             // 
             // btnPermanentlyDelete
             // 
             this.btnPermanentlyDelete.Caption = "Permanently Delete";
+            this.btnPermanentlyDelete.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPermanentlyDelete.Glyph")));
             this.btnPermanentlyDelete.Id = 15;
+            this.btnPermanentlyDelete.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPermanentlyDelete.LargeGlyph")));
             this.btnPermanentlyDelete.Name = "btnPermanentlyDelete";
             // 
             // btnNotepad
@@ -439,6 +445,13 @@ namespace TotalCommander
             this.splitMain.SplitterWidth = 3;
             this.splitMain.TabIndex = 4;
             // 
+            // barButtonItem1
+            // 
+            this.barButtonItem1.Caption = "Recycle Bin";
+            this.barButtonItem1.Glyph = global::TotalCommander.Properties.Resources.recycleBinIcon;
+            this.barButtonItem1.Id = 28;
+            this.barButtonItem1.Name = "barButtonItem1";
+            // 
             // Form1
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -506,6 +519,7 @@ namespace TotalCommander
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem1;
     }
 }
 
