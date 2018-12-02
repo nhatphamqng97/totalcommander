@@ -31,6 +31,7 @@ namespace TotalCommander
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnPack = new DevExpress.XtraBars.BarButtonItem();
             this.btnUnPack = new DevExpress.XtraBars.BarButtonItem();
@@ -49,7 +50,6 @@ namespace TotalCommander
             this.btnNotepad = new DevExpress.XtraBars.BarButtonItem();
             this.btnFind = new DevExpress.XtraBars.BarButtonItem();
             this.btnReviewFind = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -102,7 +102,6 @@ namespace TotalCommander
             this.btnNotepad,
             this.btnFind,
             this.btnReviewFind,
-            this.barButtonItem1,
             this.barButtonItem2,
             this.barButtonItem3});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
@@ -125,12 +124,14 @@ namespace TotalCommander
             // 
             this.btnPack.Caption = "Packing";
             this.btnPack.Id = 1;
+            this.btnPack.LargeGlyph = global::TotalCommander.Properties.Resources.packIcon;
             this.btnPack.Name = "btnPack";
             // 
             // btnUnPack
             // 
             this.btnUnPack.Caption = "UnPacking";
             this.btnUnPack.Id = 2;
+            this.btnUnPack.LargeGlyph = global::TotalCommander.Properties.Resources.unpackIcon;
             this.btnUnPack.Name = "btnUnPack";
             // 
             // skinRibbonGalleryBarItem1
@@ -143,6 +144,7 @@ namespace TotalCommander
             // 
             this.chkOneScreen.Caption = "One Screen";
             this.chkOneScreen.Id = 7;
+            this.chkOneScreen.LargeGlyph = global::TotalCommander.Properties.Resources.oneScreenIcon;
             this.chkOneScreen.Name = "chkOneScreen";
             // 
             // chkTwoScreen
@@ -151,53 +153,65 @@ namespace TotalCommander
             this.chkTwoScreen.Caption = "Two Screen";
             this.chkTwoScreen.Checked = true;
             this.chkTwoScreen.Id = 8;
+            this.chkTwoScreen.LargeGlyph = global::TotalCommander.Properties.Resources.twoScreenIcon;
             this.chkTwoScreen.Name = "chkTwoScreen";
             // 
             // btnCopy
             // 
             this.btnCopy.Caption = "Copy";
             this.btnCopy.Enabled = false;
+            this.btnCopy.Glyph = ((System.Drawing.Image)(resources.GetObject("btnCopy.Glyph")));
             this.btnCopy.Id = 1;
+            this.btnCopy.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnCopy.LargeGlyph")));
             this.btnCopy.Name = "btnCopy";
             // 
             // btnCut
             // 
             this.btnCut.Caption = "Cut";
             this.btnCut.Enabled = false;
+            this.btnCut.Glyph = ((System.Drawing.Image)(resources.GetObject("btnCut.Glyph")));
             this.btnCut.Id = 2;
+            this.btnCut.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnCut.LargeGlyph")));
             this.btnCut.Name = "btnCut";
             // 
             // btnPaste
             // 
             this.btnPaste.Caption = "Paste";
             this.btnPaste.Enabled = false;
+            this.btnPaste.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPaste.Glyph")));
             this.btnPaste.Id = 3;
+            this.btnPaste.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPaste.LargeGlyph")));
             this.btnPaste.Name = "btnPaste";
             // 
             // btnRename
             // 
             this.btnRename.Caption = "Rename";
             this.btnRename.Enabled = false;
+            this.btnRename.Glyph = ((System.Drawing.Image)(resources.GetObject("btnRename.Glyph")));
             this.btnRename.Id = 5;
+            this.btnRename.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnRename.LargeGlyph")));
             this.btnRename.Name = "btnRename";
             // 
             // btnSelectAll
             // 
             this.btnSelectAll.Caption = "Select All";
+            this.btnSelectAll.Glyph = global::TotalCommander.Properties.Resources.selecttable_32x32;
             this.btnSelectAll.Id = 6;
             this.btnSelectAll.Name = "btnSelectAll";
             // 
             // btnNoneSelect
             // 
             this.btnNoneSelect.Caption = "None Select";
+            this.btnNoneSelect.Glyph = global::TotalCommander.Properties.Resources.no_border_32x321;
             this.btnNoneSelect.Id = 7;
             this.btnNoneSelect.Name = "btnNoneSelect";
             // 
             // btnDelete
             // 
             this.btnDelete.Caption = "Delete";
+            this.btnDelete.Glyph = ((System.Drawing.Image)(resources.GetObject("btnDelete.Glyph")));
             this.btnDelete.Id = 13;
-            this.btnDelete.LargeGlyph = global::TotalCommander.Properties.Resources.emailtemplate_32x32;
+            this.btnDelete.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnDelete.LargeGlyph")));
             this.btnDelete.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.btnRecycleDelete),
             new DevExpress.XtraBars.LinkPersistInfo(this.btnPermanentlyDelete)});
@@ -224,32 +238,33 @@ namespace TotalCommander
             // btnFind
             // 
             this.btnFind.Caption = "Find";
+            this.btnFind.Glyph = ((System.Drawing.Image)(resources.GetObject("btnFind.Glyph")));
             this.btnFind.Id = 23;
+            this.btnFind.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnFind.LargeGlyph")));
             this.btnFind.Name = "btnFind";
             // 
             // btnReviewFind
             // 
             this.btnReviewFind.Caption = "Review Find";
             this.btnReviewFind.Enabled = false;
+            this.btnReviewFind.Glyph = ((System.Drawing.Image)(resources.GetObject("btnReviewFind.Glyph")));
             this.btnReviewFind.Id = 24;
+            this.btnReviewFind.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnReviewFind.LargeGlyph")));
             this.btnReviewFind.Name = "btnReviewFind";
-            // 
-            // barButtonItem1
-            // 
-            this.barButtonItem1.Caption = "Send Mail";
-            this.barButtonItem1.Id = 25;
-            this.barButtonItem1.Name = "barButtonItem1";
             // 
             // barButtonItem2
             // 
             this.barButtonItem2.Caption = "Notepad";
             this.barButtonItem2.Id = 26;
+            this.barButtonItem2.LargeGlyph = global::TotalCommander.Properties.Resources.notepadIcon;
             this.barButtonItem2.Name = "barButtonItem2";
             // 
             // barButtonItem3
             // 
             this.barButtonItem3.Caption = "Mail";
+            this.barButtonItem3.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem3.Glyph")));
             this.barButtonItem3.Id = 27;
+            this.barButtonItem3.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem3.LargeGlyph")));
             this.barButtonItem3.Name = "barButtonItem3";
             // 
             // ribbonPage1
@@ -273,7 +288,6 @@ namespace TotalCommander
             this.Group2.ItemLinks.Add(this.btnReviewFind);
             this.Group2.ItemLinks.Add(this.btnPack, true);
             this.Group2.ItemLinks.Add(this.btnUnPack);
-            this.Group2.ItemLinks.Add(this.barButtonItem1);
             this.Group2.ItemLinks.Add(this.btnSelectAll, true);
             this.Group2.ItemLinks.Add(this.btnNoneSelect);
             this.Group2.Name = "Group2";
@@ -437,8 +451,7 @@ namespace TotalCommander
             this.Name = "Form1";
             this.Ribbon = this.ribbonControl1;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "My Total Commander - 15520994";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Text = "Total Commander";
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             this.contextMenu.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
@@ -448,11 +461,6 @@ namespace TotalCommander
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion
@@ -495,7 +503,6 @@ namespace TotalCommander
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup Group2;
         private DevExpress.XtraBars.BarButtonItem btnFind;
         private DevExpress.XtraBars.BarButtonItem btnReviewFind;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
