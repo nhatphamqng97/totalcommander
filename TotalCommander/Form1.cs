@@ -18,5 +18,16 @@ namespace TotalCommander
             InitializeComponent();
         }
 
+        private void barButtonItem2_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("notepad.exe");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Sorry! Can't open notepad now!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
