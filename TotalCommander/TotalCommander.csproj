@@ -65,10 +65,19 @@
     <Compile Include="GUI\Find.Designer.cs">
       <DependentUpon>Find.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\uc_DirectoryList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\uc_DirectoryList.Designer.cs">
+      <DependentUpon>uc_DirectoryList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\uc_DirectoryList.resx">
+      <DependentUpon>uc_DirectoryList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
