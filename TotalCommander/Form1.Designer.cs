@@ -466,6 +466,7 @@ namespace TotalCommander
             this.Ribbon = this.ribbonControl1;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Total Commander";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             this.contextMenu.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);

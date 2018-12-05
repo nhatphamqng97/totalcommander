@@ -13,6 +13,10 @@ namespace TotalCommander
 {
     public partial class Form1 : DevExpress.XtraBars.Ribbon.RibbonForm
     {
+        private GUI.uc_DirectoryList gui1;
+
+        private GUI.uc_DirectoryList gui2;
+
         public Form1()
         {
             InitializeComponent();
@@ -28,6 +32,11 @@ namespace TotalCommander
             {
                 MessageBox.Show("Sorry! Can't open notepad now!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }
