@@ -44,5 +44,11 @@ namespace TotalCommander
             GUI.PackingForm packingForm = new GUI.PackingForm();
             packingForm.ShowDialog();
         }
+
+        private void barButtonItem3_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GUI.Mail mail = new GUI.Mail();
+            mail.ShowDialog();
+        }
     }
 }
