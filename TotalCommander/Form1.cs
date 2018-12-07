@@ -38,5 +38,11 @@ namespace TotalCommander
         {
             
         }
+
+        private void btnPack_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GUI.PackingForm packingForm = new GUI.PackingForm();
+            packingForm.ShowDialog();
+        }
     }
 }

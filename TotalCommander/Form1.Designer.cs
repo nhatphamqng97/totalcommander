@@ -128,6 +128,7 @@ namespace TotalCommander
             this.btnPack.Id = 1;
             this.btnPack.LargeGlyph = global::TotalCommander.Properties.Resources.packIcon;
             this.btnPack.Name = "btnPack";
+            this.btnPack.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPack_ItemClick);
             // 
             // btnUnPack
             // 

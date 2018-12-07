@@ -12,10 +12,12 @@ namespace TotalCommander.GUI
 {
     public partial class PackingForm : Form
     {
+
         public PackingForm()
         {
             InitializeComponent();
         }
+
 
         private void PackingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
