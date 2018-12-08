@@ -505,7 +505,7 @@ namespace TotalCommander
         private System.Windows.Forms.SplitContainer splitMain;
         private DevExpress.XtraBars.BarCheckItem chkOneScreen;
         private DevExpress.XtraBars.BarCheckItem chkTwoScreen;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
+        //private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.BarButtonItem btnCopy;
         private DevExpress.XtraBars.BarButtonItem btnCut;
         private DevExpress.XtraBars.BarButtonItem btnPaste;

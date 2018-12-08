@@ -68,7 +68,7 @@ namespace TotalCommander.GUI
         //Biến lưu lại tiến trình khi kích hoạt đa tiến trình
         private Task task;
 
-        #region Show
+        #region Show TreeView And ListView
 
         private void uc_DirectoryList_Load(object sender, EventArgs e)
         {
@@ -76,7 +76,6 @@ namespace TotalCommander.GUI
             cbPath.Properties.Items.Add("This PC");
             listBack.Push(cbPath.Text);
             showDirectoryAndFiles(listBack.Peek());
-
             tvMain.PathSeparator = "C:\\";
         }
 
@@ -158,25 +157,130 @@ namespace TotalCommander.GUI
 
                 showFiles(path);
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            { }
         }
+        #endregion
 
+        #region Button Click
         private void btnRefresh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             this.showDirectoryAndFiles(this.listBack.Peek());
         }
 
+
         #endregion
 
-        private void btnBack_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
+        #region TreeView Event
 
+        private void tvMain_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            try
+            {
+                string path = e.Node.Tag.ToString();
+
+                this.listBack.Push(path);
+
+                lvMain.Clear();
+
+                this.Cursor = Cursors.AppStarting;
+
+                showDirectoryAndFiles(this.listBack.Peek());
+
+                this.Cursor = Cursors.Arrow;
+
+                cbPath.Text = path;
+
+                cbPath.Properties.Items.Add(path);
+
+                btnBack.Enabled = true;
+
+                e.Node.Expand();
+            }
+            catch (Exception ex)
+            { }
         }
 
-        internal void btnBack_ItemClick(object p1, object p2)
+        private void tvMain_AfterExpand(object sender, TreeViewEventArgs e)
         {
-            throw new NotImplementedException();
+            string nameNode = e.Node.Name;
+
+            if (!nameNode.Equals("MyComputer"))
+            {
+                e.Node.Nodes.Clear();
+                BLL.MyTreeView.Instances.AddDirectory(e.Node, tvMain);
+            }
         }
+        #endregion
+
+        #region View Click
+
+        private void chkNavigationPane_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            splitUserControl.Panel1Collapsed = (chkNavigationPane.Checked) ? false : true;
+        }
+
+        private void btnViewLarge_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (btnViewLarge.Checked)
+            {
+                this.lvMain.View = View.LargeIcon;
+                showDirectoryAndFiles(this.listBack.Peek());
+                btnViewDetail.Checked = btnViewSmall.Checked = btnViewList.Checked = btnViewTiles.Checked = false;
+            }
+            else
+                btnViewLarge.Checked = true;
+        }
+
+        private void btnViewSmall_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (btnViewSmall.Checked)
+            {
+                this.lvMain.View = View.SmallIcon;
+                showDirectoryAndFiles(this.listBack.Peek());
+                btnViewDetail.Checked = btnViewLarge.Checked = btnViewList.Checked = btnViewTiles.Checked = false;
+            }
+            else
+                btnViewSmall.Checked = true;
+        }
+
+        private void btnViewList_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (btnViewList.Checked)
+            {
+                this.lvMain.View = View.List;
+                showDirectoryAndFiles(this.listBack.Peek());
+                btnViewDetail.Checked = btnViewLarge.Checked = btnViewSmall.Checked = btnViewTiles.Checked = false;
+            }
+            else
+                btnViewList.Checked = true;
+        }
+
+        private void btnViewDetail_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (btnViewDetail.Checked)
+            {
+                this.lvMain.View = View.Details;
+                showDirectoryAndFiles(this.listBack.Peek());
+                btnViewList.Checked = btnViewLarge.Checked = btnViewSmall.Checked = btnViewTiles.Checked = false;
+            }
+            else
+                btnViewDetail.Checked = true;
+        }
+
+        private void btnViewTiles_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (btnViewTiles.Checked)
+            {
+                this.lvMain.View = View.Tile;
+                showDirectoryAndFiles(this.listBack.Peek());
+                btnViewList.Checked = btnViewLarge.Checked = btnViewSmall.Checked = btnViewDetail.Checked = false;
+            }
+            else
+                btnViewTiles.Checked = true;
+        }
+        #endregion
+
     }
 
 }

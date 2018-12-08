@@ -25,6 +25,102 @@ namespace TotalCommander.BLL
             }
             set { ClassBLL.instances = value; }
         }
+        #region Listview
+
+        public void showViewDetail(ListView lvMain, string currentPath)
+        {
+            lvMain.Clear();
+            lvMain.LargeImageList.Images.Clear();
+            lvMain.SmallImageList.Images.Clear();
+            lvMain.StateImageList.Images.Clear();
+
+            if (currentPath.Equals("This PC"))
+            {
+
+            }
+            else
+            {
+                //Add Folders
+                string[] folders = Directory.GetDirectories(currentPath);
+
+                lvMain.LargeImageList.Images.Add("FolderIcon", BLL.ShellIcon.GetLargeFolderIcon().ToBitmap());
+
+                foreach (string folder in folders)
+                {
+                    DirectoryInfo info = new DirectoryInfo(folder);
+                    if ((info.Attributes | FileAttributes.Hidden) == info.Attributes || ((info.Attributes | FileAttributes.Temporary) == info.Attributes))
+                        continue;
+                    string Name = info.Name;
+                    string Date = info.CreationTime.ToShortDateString();
+                    string Type = info.GetType().Name;
+                    string[] strItem = new string[3];
+                    strItem[0] = Name;
+                    strItem[1] = Date;
+                    strItem[2] = Type;
+
+                    ListViewItem item = new ListViewItem(strItem);
+                    item.ImageKey = "FolderIcon";
+                    item.Name = Name;
+                    item.Tag = folder;
+
+                    lvMain.Items.Add(item);
+                }
+
+                string[] files = Directory.GetFiles(currentPath);
+
+                foreach (string file in files)
+                {
+
+                    FileInfo info = new FileInfo(file);
+                    if (lvMain.LargeImageList.Images[info.Name] == null)
+                        lvMain.LargeImageList.Images.Add(info.Name, BLL.ShellIcon.GetLargeIcon(info.FullName).ToBitmap());
+
+                    if ((info.Attributes | FileAttributes.Hidden) == info.Attributes || ((info.Attributes | FileAttributes.Temporary) == info.Attributes))
+                        continue;
+
+                    string Name = info.Name;
+                    string Date = info.CreationTime.ToShortDateString();
+                    string Type = info.GetType().Name;
+                    double Size = info.Length;
+
+                    string[] Unit = new string[] { "KB", "MB", "GB", "TB" };
+                    int u = 0;
+                    do
+                    {
+                        Size = Size / (Math.Pow(2, 10 * (u + 1)));
+                    } while (Size > 1000 && u < 4);
+
+                    Size = Math.Round(Size, 2);
+
+                    string[] strItem = new string[4];
+                    strItem[0] = Name;
+                    strItem[1] = Date;
+                    strItem[2] = Type;
+                    strItem[3] = Size.ToString();
+
+                    ListViewItem item = new ListViewItem(strItem);
+                    item.ImageKey = info.Name;
+
+                    if (info.Name.Contains('.'))
+                        item.Text = info.Name.Remove(info.Name.LastIndexOf('.'));
+
+                    item.Tag = info.FullName;
+
+                    item.Name = info.Name;
+
+                    lvMain.Items.Add(item);
+                }
+            }
+
+            lvMain.Columns.Add("Name", 200);
+            lvMain.Columns.Add("Date", 100);
+            lvMain.Columns.Add("Type", 100);
+            lvMain.Columns.Add("Size", 100);
+
+            lvMain.View = View.Details;
+        }
+
+        #endregion
 
         #region File Processing
 
@@ -389,5 +485,7 @@ namespace TotalCommander.BLL
             return false;
         }
         #endregion
+
+
     }
 }

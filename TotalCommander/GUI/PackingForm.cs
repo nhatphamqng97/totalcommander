@@ -270,7 +270,8 @@ namespace TotalCommander.GUI
                 string path = (string)lbFoldersAndFiles.SelectedItem;
                 System.Diagnostics.Process.Start(path);
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            { }
         }
 
         #endregion
