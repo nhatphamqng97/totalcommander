@@ -39,6 +39,10 @@
     <Reference Include="DevExpress.Utils.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -139,6 +143,7 @@
     <Content Include="Resources\emailtemplate_32x32.png" />
     <Content Include="Resources\find_16x16.png" />
     <Content Include="Resources\find_32x32.png" />
+    <Content Include="Resources\folder.png" />
     <Content Include="Resources\forwardIcon.png" />
     <Content Include="Resources\Ionic.Zip.dll" />
     <Content Include="Resources\listViewIcon.png" />
@@ -146,11 +151,13 @@
     <Content Include="Resources\notepadIcon.png" />
     <Content Include="Resources\no_border_32x32.png" />
     <Content Include="Resources\oneScreenIcon.png" />
+    <Content Include="Resources\Open.png" />
     <Content Include="Resources\packIcon.png" />
     <Content Include="Resources\pasteIcon.png" />
     <Content Include="Resources\paste_32x32.png" />
     <Content Include="Resources\recurrence_32x32.png" />
     <Content Include="Resources\recycleBinIcon.png" />
+    <Content Include="Resources\refresh.png" />
     <Content Include="Resources\rename.ico" />
     <Content Include="Resources\selecttable_32x32.png" />
     <Content Include="Resources\show_32x32.png" />

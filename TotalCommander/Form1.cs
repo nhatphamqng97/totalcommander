@@ -141,6 +141,7 @@ namespace TotalCommander
         #endregion
 
 
+        #region Application
         private void btnPack_ItemClick(object sender, ItemClickEventArgs e)
         {
             GUI.PackingForm packingForm = new GUI.PackingForm();
@@ -152,5 +153,8 @@ namespace TotalCommander
             GUI.Mail mail = new GUI.Mail();
             mail.ShowDialog();
         }
+
+
+        #endregion
     }
 }

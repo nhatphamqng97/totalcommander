@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Net.Mail;
 using System.Net;
+using Ionic.Zip;
 
 namespace TotalCommander.BLL
 {
@@ -318,6 +319,75 @@ namespace TotalCommander.BLL
             return new List<string>();
         }
 
+        #endregion
+
+        #region Packing
+       
+        //listPath: Danh sách các folder|File cần đóng gói(The Folder path or File path need pack)
+        //zipFilePath: Đường dẫn đích của file sau khi đóng gói(The destination Path of the pack file)
+
+        public bool packFile(List<string> listPath, string zipFilePath)
+        {
+            //Tạo một thư mục tạm
+            DirectoryInfo temp = Directory.CreateDirectory("temp");
+
+            //Copy tất cả các file trong listPath qua cho thư mục tạm
+            foreach (string path in listPath)
+                BLL.ClassBLL.Instances.copyAction(path, temp.FullName, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs);
+
+            List<string> listPathTemp = new List<string>();//Danh sách tạm để làm đối số cho hàm xóa thư mục tạm
+
+            using (ZipFile zip = new ZipFile())
+            {
+                try
+                {
+                    //add thư mục tạm đó vào để đóng gói
+                    zip.AddDirectory(temp.FullName);
+                    zip.Save(zipFilePath);
+                    zip.Dispose();
+
+                    //Xóa thư mục tạm đi
+                    listPathTemp.Add(temp.FullName);
+                    BLL.ClassBLL.Instances.deletePermanently(listPathTemp, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs);
+
+                    return true;
+                }
+                catch (Exception ex)
+                { }
+            }
+
+            //Xóa thư mục tạm
+            listPathTemp.Add(temp.FullName);
+            BLL.ClassBLL.Instances.deletePermanently(listPathTemp, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs);
+            return false;
+        }
+
+        
+         //path: đường dẫn của file cần giải nén(The path of the file need unpack)
+         //newPath: đường dẫn lưu folder sau khi giải nén(The path of folder after finish unpack)
+         
+        public bool unpackFile(string path, string newPath)
+        {
+            try
+            {
+                ZipFile zip = ZipFile.Read(path);
+
+                Directory.CreateDirectory(newPath);
+
+                zip.ExtractAll(newPath, ExtractExistingFileAction.OverwriteSilently);
+
+                zip.Dispose();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                if (Directory.Exists(newPath))
+                    deletePermanently(new List<string>() { newPath }, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs);
+            }
+
+            return false;
+        }
         #endregion
     }
 }

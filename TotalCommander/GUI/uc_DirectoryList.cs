@@ -167,6 +167,16 @@ namespace TotalCommander.GUI
         }
 
         #endregion
+
+        private void btnBack_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+
+        }
+
+        internal void btnBack_ItemClick(object p1, object p2)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
