@@ -30,34 +30,6 @@ namespace TotalCommander.GUI
             Tbn_Recever.Text = MailTo;
             Tbn_Subject.Text = Subject;
         }
-        public void settexpath()
-        {
-            Tbn_AttachFile.Text = null;
-        }
-
-        // Nhận đường dẫn từ lớp ngoài.
-        public void SetPathAttachFile(string path)
-        {
-            try
-            {
-                DirectoryInfo di = new DirectoryInfo(path);
-                string extention = Path.GetExtension(path);
-                Tbn_AttachFile.Text = "";
-                if (di.Attributes != FileAttributes.Directory && extention != "")
-                {
-                    Tbn_AttachFile.Text = path;
-                }
-                else
-                {
-                    MessageBox.Show(" Chương trình không thể gởi một folder, hay nhiều file. \n Vui lòng chọn một file khác trong mục Duyệt...", "Lỗi thực thi...", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Đường dẫn đến file không thể truy cập:" + ex.Message + "\n Vui lòng nhấn nút duyệt để chọn file. ", "Lỗi thực thi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         // Chọn file cần đính kèm.
         private void Btn_chooseFile_Click(object sender, EventArgs e)
@@ -72,7 +44,7 @@ namespace TotalCommander.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi thực thi:  " + ex.Message, "Lỗi...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error Excute:  " + ex.Message, "Error...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -82,22 +54,15 @@ namespace TotalCommander.GUI
         {
             Tbn_Password.Focus();
             Rbn_Gmail.Checked = true;
-
         }
 
         // Khoi tao bien bool 
         Boolean bl = false;
 
-        // Button Goi.
-        private void Btn_Send_Click(object sender, EventArgs e)
-        {        
-            SendMail();
-        }
 
         // Ham Goi mail
         private void SendMail()
         {
-            TSS.Text = "Đang Gửi Mail đến" + Tbn_Recever.Text + "...";
             bl = false;
             CheckInfo();
             if (bl)
@@ -107,6 +72,7 @@ namespace TotalCommander.GUI
             }
             try
             {
+                TSS.Text = "Sending to " + Tbn_Recever.Text + "...";
                 System.Net.NetworkCredential NkC = new System.Net.NetworkCredential(Tbn_UserName.Text, Tbn_Password.Text);
                 // Tao mot bien mailmessage.
                 MailMessage mmg = new MailMessage();
@@ -115,8 +81,11 @@ namespace TotalCommander.GUI
                 String[] addr = Tbn_Recever.Text.Split(',');
                 Byte i;
                 for (i = 0; i < addr.Length; i++)
-                    mmg.To.Add(addr[i]);
-                mmg.ReplyTo = new MailAddress(Tbn_Recever.Text);
+                {
+                     mmg.To.Add(addr[i]);
+                mmg.ReplyToList.Add(addr[i]);
+                }
+                   
                 // chu de goi di
                 mmg.Subject = Tbn_Subject.Text;
 
@@ -190,50 +159,56 @@ namespace TotalCommander.GUI
                 smtC.Credentials = NkC;
                 smtC.Port = 587;
                 smtC.Send(mmg);
-                MessageBox.Show("Thư đã được gởi đến: " + Tbn_Recever.Text + " , " + Tbn_Cc.Text, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                TSS.Text = " The email was sent to:" + Tbn_Recever.Text;
+                MessageBox.Show("The email was sent to: " + Tbn_Recever.Text + " , " + Tbn_Cc.Text, "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show(ex.Message, "Lỗi thực thi...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error Excute...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            TSS.Text = " Mail đã được gởi đến:" + Tbn_Recever.Text;
+            
         }
 
         // Kiem tra thong tin da nhap.
         private void CheckInfo()
         {
-            String strMessage = " Những mục sau đây là bắt buộc phải nhập: \r\n";
+            String strMessage = "Must Required: \r\n";
             ErrorProvider er1 = new ErrorProvider();
             if (Tbn_UserName.Text == "")
             {
                 bl = true;
-                strMessage += "Email người gởi" + "\r\n";
+                strMessage += "Mail From" + "\r\n";
                 er1.Clear();
-                er1.SetError(Tbn_UserName, " Bắt buộc phải nhập mục này!");
+                er1.SetError(Tbn_UserName, " is requied!");
                 return;
             }
             if (Tbn_Password.Text == "")
             {
                 bl = true;
-                strMessage += "Mật khẩu " + "\r\n";
+                strMessage += "Password " + "\r\n";
                 er1.Clear();
-                er1.SetError(Tbn_Password, " Bắt buộc phải nhập mục này!");
+                er1.SetError(Tbn_Password, " is requied!");
                 return;
             }
 
             if (Tbn_Subject.Text == "")
             {
-                Tbn_Subject.Text = "Không chủ đề.";
+                Tbn_Subject.Text = "No Subject";
             }
 
             if (bl)
             {
-                MessageBox.Show(strMessage, " Lỗi thực thi...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(strMessage, "Error Excute...", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }
 
-        // Button xoa.
+
+        private void Btn_Send_Click(object sender, EventArgs e)
+        {
+            SendMail();
+        }
+
         private void Btn_Clear_Click(object sender, EventArgs e)
         {
             Rbn_Gmail.Checked = true;
@@ -243,6 +218,7 @@ namespace TotalCommander.GUI
             Tbn_Subject.Text = null;
             Tbn_Cc.Text = null;
             Rtb_Content.Text = null;
+            TSS.Text = "Ready...";
 
         }
     }

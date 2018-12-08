@@ -193,6 +193,131 @@ namespace TotalCommander.BLL
             catch (Exception ex) { }
         }
 
+        public bool copyAction(string sourcePath, string destinationPath, Microsoft.VisualBasic.FileIO.UIOption UI = Microsoft.VisualBasic.FileIO.UIOption.AllDialogs)
+        {
+            try
+            {
+                destinationPath = Path.Combine(destinationPath, Path.Combine(destinationPath, sourcePath.Substring(sourcePath.LastIndexOf('\\') + 1)));
+
+                if (Directory.Exists(sourcePath))
+                {
+                    Directory.CreateDirectory(destinationPath);
+
+                    Microsoft.VisualBasic.FileIO.FileSystem.CopyDirectory(sourcePath, destinationPath, UI, Microsoft.VisualBasic.FileIO.UICancelOption.ThrowException);
+                }
+                else
+                    Microsoft.VisualBasic.FileIO.FileSystem.CopyFile(sourcePath, destinationPath, UI, Microsoft.VisualBasic.FileIO.UICancelOption.ThrowException);
+                return true;
+            }
+            catch (Exception ex) { }
+
+            return false;
+        }
+
+        public bool moveAction(string sourcePath, string destinationPath, Microsoft.VisualBasic.FileIO.UIOption UI = Microsoft.VisualBasic.FileIO.UIOption.AllDialogs)
+        {
+            try
+            {
+                destinationPath = Path.Combine(destinationPath, Path.Combine(destinationPath, sourcePath.Substring(sourcePath.LastIndexOf('\\') + 1)));
+
+                if (Directory.Exists(sourcePath))
+                    Microsoft.VisualBasic.FileIO.FileSystem.MoveDirectory(sourcePath, destinationPath, UI, Microsoft.VisualBasic.FileIO.UICancelOption.ThrowException);
+                else
+                    Microsoft.VisualBasic.FileIO.FileSystem.MoveFile(sourcePath, destinationPath, UI, Microsoft.VisualBasic.FileIO.UICancelOption.ThrowException);
+                return true;
+            }
+            catch (Exception ex) { }
+
+            return false;
+
+        }
+
+        public bool deleteSendToRecycleBin(List<string> listPath)
+        {
+            try
+            {
+                if (listPath.Count > 0)
+                {
+                    foreach (string path in listPath)
+                    {
+                        if (Directory.Exists(path))
+                            Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(path, Microsoft.VisualBasic.FileIO.UIOption.AllDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin, Microsoft.VisualBasic.FileIO.UICancelOption.ThrowException);
+                        else
+                            Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(path, Microsoft.VisualBasic.FileIO.UIOption.AllDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin, Microsoft.VisualBasic.FileIO.UICancelOption.ThrowException);
+                    }
+
+                    return true;
+                }
+            }
+            catch (Exception ex) { }
+            return false;
+        }
+
+        public bool deletePermanently(List<string> listPath, Microsoft.VisualBasic.FileIO.UIOption UI)
+        {
+            try
+            {
+                if (listPath.Count > 0)
+                {
+                    foreach (string path in listPath)
+                    {
+                        if (Directory.Exists(path))
+                            Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(path, UI, Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently, Microsoft.VisualBasic.FileIO.UICancelOption.ThrowException);
+                        else
+                            Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(path, UI, Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently, Microsoft.VisualBasic.FileIO.UICancelOption.ThrowException);
+                    }
+                    return true;
+                }
+            }
+            catch (Exception ex) { }
+
+            return false;
+        }
+
+        public List<string> findAction(string path, string name)
+        {
+            try
+            {
+                List<string> result = new List<string>();
+
+                foreach (string folder in Microsoft.VisualBasic.FileIO.FileSystem.GetDirectories(path))
+                {
+                    DirectoryInfo direcryInfo = Microsoft.VisualBasic.FileIO.FileSystem.GetDirectoryInfo(folder);
+
+                    if (((direcryInfo.Attributes | FileAttributes.Hidden) == direcryInfo.Attributes) || ((direcryInfo.Attributes | FileAttributes.Temporary) == direcryInfo.Attributes))
+                        continue;
+
+                    result.AddRange(findAction(folder, name));
+
+                    string nameFile = direcryInfo.Name;
+
+                    if (nameFile.ToLower().Contains(name.ToLower()))
+                        result.Add(folder);
+                }
+
+                foreach (string file in Microsoft.VisualBasic.FileIO.FileSystem.GetFiles(path))
+                {
+
+                    FileInfo fileInfo = Microsoft.VisualBasic.FileIO.FileSystem.GetFileInfo(file);
+
+                    if (((fileInfo.Attributes | FileAttributes.Hidden) == fileInfo.Attributes) || ((fileInfo.Attributes | FileAttributes.Temporary) == fileInfo.Attributes))
+                        continue;
+
+                    string nameFile = fileInfo.Name;
+
+                    if (nameFile.Contains('.'))
+                        nameFile = nameFile.Remove(nameFile.LastIndexOf('.'));
+
+                    if (nameFile.ToLower().Contains(name.ToLower()))
+                        result.Add(file);
+                }
+
+                return result;
+            }
+            catch (Exception ex) { }
+            return new List<string>();
+        }
+
         #endregion
     }
 }

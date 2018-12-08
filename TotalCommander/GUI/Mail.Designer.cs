@@ -104,7 +104,7 @@
             this.groupBox1.Size = new System.Drawing.Size(387, 176);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Thông tin";
+            this.groupBox1.Text = "Information";
             // 
             // Tbn_Subject
             // 
@@ -120,7 +120,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 17);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Chủ đề";
+            this.label5.Text = "Subject";
             // 
             // lbn_Cc
             // 
@@ -136,27 +136,27 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(14, 86);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(110, 17);
+            this.label4.Size = new System.Drawing.Size(53, 17);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Email người nhận";
+            this.label4.Text = "Mail To";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(14, 56);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 17);
+            this.label2.Size = new System.Drawing.Size(66, 17);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Mật khẩu";
+            this.label2.Text = "Password";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(14, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 17);
+            this.label1.Size = new System.Drawing.Size(69, 17);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Tên tài khoản";
+            this.label1.Text = "Mail From";
             // 
             // groupBox2
             // 
@@ -169,7 +169,7 @@
             this.groupBox2.Size = new System.Drawing.Size(387, 198);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Nội dung gởi";
+            this.groupBox2.Text = "Content";
             // 
             // Rtb_Content
             // 
@@ -177,22 +177,23 @@
             this.Rtb_Content.Name = "Rtb_Content";
             this.Rtb_Content.Size = new System.Drawing.Size(369, 128);
             this.Rtb_Content.TabIndex = 2;
-            this.Rtb_Content.Text = "";
+            this.Rtb_Content.Text = "Content";
             // 
             // Btn_chooseFile
             // 
-            this.Btn_chooseFile.Location = new System.Drawing.Point(283, 24);
+            this.Btn_chooseFile.Location = new System.Drawing.Point(299, 24);
             this.Btn_chooseFile.Name = "Btn_chooseFile";
             this.Btn_chooseFile.Size = new System.Drawing.Size(70, 25);
             this.Btn_chooseFile.TabIndex = 1;
-            this.Btn_chooseFile.Text = "Duyệt...";
+            this.Btn_chooseFile.Text = "Browse...";
             this.Btn_chooseFile.UseVisualStyleBackColor = true;
+            this.Btn_chooseFile.Click += new System.EventHandler(this.Btn_chooseFile_Click);
             // 
             // Tbn_AttachFile
             // 
-            this.Tbn_AttachFile.Location = new System.Drawing.Point(99, 24);
+            this.Tbn_AttachFile.Location = new System.Drawing.Point(85, 24);
             this.Tbn_AttachFile.Name = "Tbn_AttachFile";
-            this.Tbn_AttachFile.Size = new System.Drawing.Size(178, 25);
+            this.Tbn_AttachFile.Size = new System.Drawing.Size(208, 25);
             this.Tbn_AttachFile.TabIndex = 0;
             // 
             // label6
@@ -200,9 +201,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 31);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(87, 17);
+            this.label6.Size = new System.Drawing.Size(73, 17);
             this.label6.TabIndex = 0;
-            this.label6.Text = "File đính kèm";
+            this.label6.Text = "Attach File";
             // 
             // statusStrip1
             // 
@@ -226,8 +227,9 @@
             this.Btn_Send.Name = "Btn_Send";
             this.Btn_Send.Size = new System.Drawing.Size(70, 25);
             this.Btn_Send.TabIndex = 0;
-            this.Btn_Send.Text = "Gửi...";
+            this.Btn_Send.Text = "Send";
             this.Btn_Send.UseVisualStyleBackColor = true;
+            this.Btn_Send.Click += new System.EventHandler(this.Btn_Send_Click);
             // 
             // Btn_Clear
             // 
@@ -235,8 +237,9 @@
             this.Btn_Clear.Name = "Btn_Clear";
             this.Btn_Clear.Size = new System.Drawing.Size(70, 25);
             this.Btn_Clear.TabIndex = 1;
-            this.Btn_Clear.Text = "Xóa";
+            this.Btn_Clear.Text = "Clear";
             this.Btn_Clear.UseVisualStyleBackColor = true;
+            this.Btn_Clear.Click += new System.EventHandler(this.Btn_Clear_Click);
             // 
             // groupBox3
             // 
@@ -248,7 +251,7 @@
             this.groupBox3.Size = new System.Drawing.Size(387, 48);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Chọn dịch vụ mail";
+            this.groupBox3.Text = "Mail Services";
             // 
             // Rbn_LiveMail
             // 
