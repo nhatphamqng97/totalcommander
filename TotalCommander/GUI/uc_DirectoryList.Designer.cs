@@ -109,6 +109,7 @@
             this.btnBack.Glyph = ((System.Drawing.Image)(resources.GetObject("btnBack.Glyph")));
             this.btnBack.Id = 1;
             this.btnBack.Name = "btnBack";
+            this.btnBack.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnBack_ItemClick);
             // 
             // btnForward
             // 
@@ -116,12 +117,14 @@
             this.btnForward.Glyph = ((System.Drawing.Image)(resources.GetObject("btnForward.Glyph")));
             this.btnForward.Id = 2;
             this.btnForward.Name = "btnForward";
+            this.btnForward.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnForward_ItemClick);
             // 
             // btnUpTo
             // 
             this.btnUpTo.Glyph = ((System.Drawing.Image)(resources.GetObject("btnUpTo.Glyph")));
             this.btnUpTo.Id = 3;
             this.btnUpTo.Name = "btnUpTo";
+            this.btnUpTo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUpTo_ItemClick);
             // 
             // chkNavigationPane
             // 
@@ -292,6 +295,9 @@
             this.lvMain.TabIndex = 0;
             this.lvMain.UseCompatibleStateImageBehavior = false;
             this.lvMain.View = System.Windows.Forms.View.Details;
+            this.lvMain.SelectedIndexChanged += new System.EventHandler(this.lvMain_SelectedIndexChanged);
+            this.lvMain.DoubleClick += new System.EventHandler(this.lvMain_DoubleClick);
+            this.lvMain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvMain_KeyDown);
             // 
             // contextMenu
             // 
@@ -410,6 +416,10 @@
             this.imList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imList.ImageSize = new System.Drawing.Size(32, 32);
             this.imList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // timer
+            // 
+            this.timer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // uc_DirectoryList
             // 

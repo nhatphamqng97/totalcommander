@@ -162,15 +162,6 @@ namespace TotalCommander.GUI
         }
         #endregion
 
-        #region Button Click
-        private void btnRefresh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            this.showDirectoryAndFiles(this.listBack.Peek());
-        }
-
-
-        #endregion
-
         #region TreeView Event
 
         private void tvMain_AfterSelect(object sender, TreeViewEventArgs e)
@@ -211,6 +202,234 @@ namespace TotalCommander.GUI
                 BLL.MyTreeView.Instances.AddDirectory(e.Node, tvMain);
             }
         }
+        #endregion
+
+        #region Listview Event
+        private void lvMain_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                string path = lvMain.SelectedItems[0].Tag.ToString();
+
+                if (File.Exists(path))
+                {
+                    System.Diagnostics.Process.Start(path);
+                    return;
+                }
+
+                this.listBack.Push(path);
+
+                this.Cursor = Cursors.AppStarting;
+
+                showDirectoryAndFiles(listBack.Peek());
+
+                this.Cursor = Cursors.Arrow;
+
+                cbPath.Text = path;
+
+                cbPath.Properties.Items.Add(path);
+
+                btnBack.Enabled = true;//Bật back
+
+                btnForward.Enabled = false;//Tắt forward
+
+                this.listForward.Clear();//Xóa ngăn xếp forward
+            }
+            catch (Exception ex)
+            { }
+        }
+        private void lvMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!this.listBack.Peek().Equals("This PC") && setEnabledButton != null)
+            {
+                if (lvMain.SelectedItems.Count > 0)
+                    setEnabledButton(true);
+                else
+                    setEnabledButton(false);
+            }
+
+            foreach (ListViewItem item in lvMain.Items)
+                if (item.Selected)
+                {
+                    menuItemOpen.Enabled = true;
+                    menuItemCopy.Enabled = true;
+                    menuItemCut.Enabled = true;
+                    menuItemDelete.Enabled = true;
+                    return;
+                }
+            menuItemOpen.Enabled = false;
+            menuItemCopy.Enabled = false;
+            menuItemCut.Enabled = false;
+            menuItemDelete.Enabled = false;
+        }
+        private void lvMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (this.lvMain.SelectedItems.Count > 0)
+                    lvMain_DoubleClick(null, null);
+            }
+            else if (e.KeyCode == Keys.Back)
+                btnBack_ItemClick(null, null);
+
+            else if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.Delete && !cbPath.Text.Equals("This PC"))//Nếu người dùng nhấn Shift + Delete và không phải ở This PC thì cho phép xóa
+            {
+                List<string> listPath = new List<string>();
+
+                foreach (ListViewItem item in lvMain.SelectedItems)
+                    listPath.Add(item.Tag.ToString());
+
+                if (listPath.Count > 1)
+                {
+                    //Nếu có nhiều hơn 1 item thì hiển thị MessBox chung cho các items được xóa
+                    if (MessageBox.Show("Are you sure you want to permanetly delete these " + listPath.Count + " items?", "Delete Multipe Items", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes
+                        && BLL.ClassBLL.Instances.deletePermanently(listPath, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs))
+                    {
+                        foreach (ListViewItem item in lvMain.SelectedItems)
+                            lvMain.Items.RemoveByKey(item.Name);
+                    }
+                }
+                else
+                {
+                    //Nếu chỉ có một item thì hiển thị UI của nó
+                    if (BLL.ClassBLL.Instances.deletePermanently(listPath, Microsoft.VisualBasic.FileIO.UIOption.AllDialogs))
+                    {
+                        foreach (ListViewItem item in lvMain.SelectedItems)
+                            lvMain.Items.RemoveByKey(item.Name);
+                    }
+                }
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+                if (lvMain.SelectedItems.Count > 0)
+                {
+                    ListViewItem item = lvMain.SelectedItems[0];//Lấy Item đang được chọn
+
+                    this.oldNameItem = item.Name;
+
+                    item.BeginEdit();
+                }
+            }
+            else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.A)
+            {
+                foreach (ListViewItem item in lvMain.Items)
+                    item.Selected = true;
+            }
+        }
+
+        #endregion
+
+        #region Button Click
+
+        public void btnBack_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            try
+            {
+                if (this.listBack.Count == 1)//Nếu trong stack chỉ có một phần tử đó là This PC thì không cho back nữa
+                    return;
+
+                this.listForward.Push(listBack.Pop());//Xóa đi thư mục vừa mới thoát ra đồng thời lưu hoạt động đó vào Forward
+
+                if (cbPath.SelectedIndex >= 0)
+                    cbPath.Properties.Items.RemoveAt(cbPath.SelectedIndex);//Xóa đường dẫn vừa mới thoát ra khỏi combobox
+
+                lvMain.Clear();
+
+                this.Cursor = Cursors.AppStarting;
+
+                string path = this.listBack.Peek();
+
+                showDirectoryAndFiles(listBack.Peek());
+
+                this.Cursor = Cursors.Arrow;
+
+                if (string.IsNullOrEmpty(path))
+                {
+                    cbPath.Properties.Items.Clear();
+                    cbPath.Text = "This PC";
+                    cbPath.Properties.Items.Add("This PC");
+                }
+                else
+                    cbPath.Text = path;
+
+                if (this.listBack.Count == 1)//Nếu stack chỉ còn phần tử This PC thì không cho back nữa
+                    btnBack.Enabled = false;
+
+                btnForward.Enabled = true;//Bật forward
+            }
+            catch (Exception ex)
+            { }
+        }
+
+        private void btnForward_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+
+            //Xóa đi thư mục vừa mới thoát ra trong Forward đồng thời lưu vào combobox
+            string pathForward = listForward.Pop();
+
+            this.listBack.Push(pathForward);
+
+            lvMain.Clear();
+
+            this.Cursor = Cursors.AppStarting;
+
+            showDirectoryAndFiles(pathForward);
+
+            this.Cursor = Cursors.Arrow;
+
+            cbPath.Text = pathForward;
+
+            cbPath.Properties.Items.Add(pathForward);
+
+            if (this.listForward.Count == 0)//Nếu hết phần tử trong forward thì tắt forward
+                btnForward.Enabled = false;
+
+            btnBack.Enabled = true;//Bật back
+        }
+
+        private void btnUpTo_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            try
+            {
+                string path;
+
+                if (cbPath.Text.Equals("This PC"))
+                    path = tvMain.TopNode.Tag.ToString();
+                else
+                {
+                    DirectoryInfo direc = new DirectoryInfo(cbPath.Text).Parent;
+                    path = (direc != null) ? direc.FullName : "This PC";
+                }
+
+                this.listBack.Push(path);
+
+                lvMain.Clear();
+
+                this.Cursor = Cursors.AppStarting;
+
+                showDirectoryAndFiles(this.listBack.Peek());
+
+                this.Cursor = Cursors.Arrow;
+
+                cbPath.Text = path;
+
+                cbPath.Properties.Items.Add(path);
+
+                btnBack.Enabled = true;
+
+                btnForward.Enabled = false;
+
+                this.listForward.Clear();
+            }
+            catch (Exception ex)
+            { }
+        }
+
+        private void btnRefresh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            this.showDirectoryAndFiles(this.listBack.Peek());
+        }
+
         #endregion
 
         #region View Click
@@ -280,6 +499,19 @@ namespace TotalCommander.GUI
                 btnViewTiles.Checked = true;
         }
         #endregion
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (this.task.IsCompleted)
+            {
+                //Gọi hàm refresh lại tất cả các giao diện ở form1
+                if (getRefreshAll != null)
+                    getRefreshAll();
+
+                //Dừng bộ đếm khi đã kết thúc tiến trình
+                this.timer.Stop();
+            }
+        }
 
     }
 
