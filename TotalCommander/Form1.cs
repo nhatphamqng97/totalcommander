@@ -8,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
+using System.Diagnostics;
+using System.IO;
 
 namespace TotalCommander
 {
@@ -22,17 +24,6 @@ namespace TotalCommander
             InitializeComponent();
         }
 
-        private void barButtonItem2_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                System.Diagnostics.Process.Start("notepad.exe");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Sorry! Can't open notepad now!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -58,6 +49,10 @@ namespace TotalCommander
             gui2.pushContextMenuForParent = new GUI.uc_DirectoryList.DpushContextMenuForParent(setContextMenu);
             gui2.setEnabledButton = new GUI.uc_DirectoryList.DsetEnabledButton(setEnabledForSelectItem);
             splitMain.Panel2.Controls.Add(gui2);
+
+            splitMain.Panel2Collapsed = true;
+
+
         }
 
         public void refreshAll()
@@ -142,19 +137,143 @@ namespace TotalCommander
 
 
         #region Application
-        private void btnPack_ItemClick(object sender, ItemClickEventArgs e)
+
+        //Notepad Button
+        private void barButtonItem2_ItemClick(object sender, ItemClickEventArgs e)
         {
-            GUI.PackingForm packingForm = new GUI.PackingForm();
-            packingForm.ShowDialog();
+            try
+            {
+                System.Diagnostics.Process.Start("notepad.exe");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Canot Open Application. Error \n" + ex.Message, " Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
+        //Mail Button
         private void barButtonItem3_ItemClick(object sender, ItemClickEventArgs e)
         {
             GUI.Mail mail = new GUI.Mail();
             mail.ShowDialog();
         }
 
+        //CMD Button
+        private void barButtonItem4_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                startInfo.FileName = "cmd.exe"; 
+                startInfo.Verb = "runas";
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Canot Open Application. Error \n" + ex.Message, " Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+        }
+
+        private void barButtonItem5_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("calc.exe");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Canot Open Application. Error \n" + ex.Message, " Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+        }
+
+        #region Shutdown
+        int times;
+        bool flag = false;
+
+        private void timershutdown_Tick(object sender, EventArgs e)
+        {
+            if (flag == true)
+            {
+                if (times > 0)
+                {
+                    times--;
+                    prShutdown.Value = times;
+                    prShutdown.Increment(1);
+                    ttlbShutdown.Text = " Shutdown After: " + times.ToString() + " s ";
+                }
+                else
+                {
+                    timershutdown.Enabled = false;
+                    timershutdown.Stop();
+                    System.Diagnostics.Process.Start("shutdown", "-s");
+
+                }
+            }
+        }
+
+        private void tb_Shutdown_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) 
+            {
+                if (tb_Shutdown.Text != null)
+                {
+                    timershutdown.Enabled = true;
+                    timershutdown.Start();
+                    times = Convert.ToInt32(tb_Shutdown.Text);
+
+                    prShutdown.Visible = true;
+                    prShutdown.Minimum = 0;
+                    prShutdown.Maximum = times;
+
+                    ttlbShutdown.Visible = true;
+                    flag = true;
+
+                    this.popupControlContainer2.Dispose();
+                }
+            }
+        }
 
         #endregion
+
+
+            #endregion
+
+            #region Home Page Action
+        private void chkOneScreen_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (chkOneScreen.Checked)
+            {
+                chkTwoScreen.Checked = false;
+                splitMain.Panel2Collapsed = true;//Thu Panel 2 lai
+            }
+            else
+                chkOneScreen.Checked = true;
+        }
+
+
+        private void chkTwoScreen_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (chkTwoScreen.Checked)
+            {
+                chkOneScreen.Checked = false;
+                splitMain.Panel2Collapsed = false;
+            }
+            else
+                chkTwoScreen.Checked = true;
+        }
+
+        //Packing
+        private void btnPack_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GUI.PackingForm packingForm = new GUI.PackingForm();
+            packingForm.ShowDialog();
+        }
+        #endregion
+
     }
 }

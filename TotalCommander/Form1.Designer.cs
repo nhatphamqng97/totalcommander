@@ -53,10 +53,21 @@ namespace TotalCommander
             this.btnReviewFind = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_shutdown = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
+            this.popupControlContainer2 = new DevExpress.XtraBars.PopupControlContainer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.lbShutdown = new System.Windows.Forms.Label();
+            this.tb_Shutdown = new System.Windows.Forms.TextBox();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.Group2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.repositoryItemMemoExEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemCopy = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,9 +82,16 @@ namespace TotalCommander
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ttlbShutdown = new System.Windows.Forms.ToolStripStatusLabel();
+            this.prShutdown = new System.Windows.Forms.ToolStripProgressBar();
             this.splitMain = new System.Windows.Forms.SplitContainer();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.timershutdown = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupControlContainer2)).BeginInit();
+            this.popupControlContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoExEdit1)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
@@ -105,13 +123,21 @@ namespace TotalCommander
             this.btnReviewFind,
             this.barButtonItem2,
             this.barButtonItem3,
-            this.barButtonItem1});
+            this.barButtonItem1,
+            this.barButtonItem4,
+            this.barButtonItem5,
+            this.barButtonItem6,
+            this.btn_shutdown,
+            this.barButtonItem7});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 29;
+            this.ribbonControl1.MaxItemId = 41;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
             this.ribbonPage2});
+            this.ribbonControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemTextEdit1,
+            this.repositoryItemMemoExEdit1});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2010;
             this.ribbonControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ribbonControl1.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
@@ -126,7 +152,7 @@ namespace TotalCommander
             // 
             this.btnPack.Caption = "Packing";
             this.btnPack.Id = 1;
-            this.btnPack.LargeGlyph = global::TotalCommander.Properties.Resources.packIcon;
+            this.btnPack.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPack.LargeGlyph")));
             this.btnPack.Name = "btnPack";
             this.btnPack.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPack_ItemClick);
             // 
@@ -134,7 +160,7 @@ namespace TotalCommander
             // 
             this.btnUnPack.Caption = "UnPacking";
             this.btnUnPack.Id = 2;
-            this.btnUnPack.LargeGlyph = global::TotalCommander.Properties.Resources.unpackIcon;
+            this.btnUnPack.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnUnPack.LargeGlyph")));
             this.btnUnPack.Name = "btnUnPack";
             // 
             // skinRibbonGalleryBarItem1
@@ -145,19 +171,21 @@ namespace TotalCommander
             // 
             // chkOneScreen
             // 
+            this.chkOneScreen.BindableChecked = true;
             this.chkOneScreen.Caption = "One Screen";
+            this.chkOneScreen.Checked = true;
             this.chkOneScreen.Id = 7;
-            this.chkOneScreen.LargeGlyph = global::TotalCommander.Properties.Resources.oneScreenIcon;
+            this.chkOneScreen.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("chkOneScreen.LargeGlyph")));
             this.chkOneScreen.Name = "chkOneScreen";
+            this.chkOneScreen.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.chkOneScreen_ItemClick);
             // 
             // chkTwoScreen
             // 
-            this.chkTwoScreen.BindableChecked = true;
             this.chkTwoScreen.Caption = "Two Screen";
-            this.chkTwoScreen.Checked = true;
             this.chkTwoScreen.Id = 8;
-            this.chkTwoScreen.LargeGlyph = global::TotalCommander.Properties.Resources.twoScreenIcon;
+            this.chkTwoScreen.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("chkTwoScreen.LargeGlyph")));
             this.chkTwoScreen.Name = "chkTwoScreen";
+            this.chkTwoScreen.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.chkTwoScreen_ItemClick);
             // 
             // btnCopy
             // 
@@ -198,14 +226,14 @@ namespace TotalCommander
             // btnSelectAll
             // 
             this.btnSelectAll.Caption = "Select All";
-            this.btnSelectAll.Glyph = global::TotalCommander.Properties.Resources.selecttable_32x32;
+            this.btnSelectAll.Glyph = ((System.Drawing.Image)(resources.GetObject("btnSelectAll.Glyph")));
             this.btnSelectAll.Id = 6;
             this.btnSelectAll.Name = "btnSelectAll";
             // 
             // btnNoneSelect
             // 
             this.btnNoneSelect.Caption = "None Select";
-            this.btnNoneSelect.Glyph = global::TotalCommander.Properties.Resources.no_border_32x321;
+            this.btnNoneSelect.Glyph = ((System.Drawing.Image)(resources.GetObject("btnNoneSelect.Glyph")));
             this.btnNoneSelect.Id = 7;
             this.btnNoneSelect.Name = "btnNoneSelect";
             // 
@@ -232,7 +260,7 @@ namespace TotalCommander
             // barButtonItem1
             // 
             this.barButtonItem1.Caption = "Recycle Bin";
-            this.barButtonItem1.Glyph = global::TotalCommander.Properties.Resources.recycleBinIcon;
+            this.barButtonItem1.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.Glyph")));
             this.barButtonItem1.Id = 28;
             this.barButtonItem1.Name = "barButtonItem1";
             // 
@@ -270,7 +298,7 @@ namespace TotalCommander
             // 
             this.barButtonItem2.Caption = "Notepad";
             this.barButtonItem2.Id = 26;
-            this.barButtonItem2.LargeGlyph = global::TotalCommander.Properties.Resources.notepadIcon;
+            this.barButtonItem2.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem2.LargeGlyph")));
             this.barButtonItem2.Name = "barButtonItem2";
             this.barButtonItem2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick);
             // 
@@ -282,6 +310,96 @@ namespace TotalCommander
             this.barButtonItem3.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem3.LargeGlyph")));
             this.barButtonItem3.Name = "barButtonItem3";
             this.barButtonItem3.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem3_ItemClick);
+            // 
+            // barButtonItem4
+            // 
+            this.barButtonItem4.Caption = "CMD";
+            this.barButtonItem4.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem4.Glyph")));
+            this.barButtonItem4.Id = 29;
+            this.barButtonItem4.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem4.LargeGlyph")));
+            this.barButtonItem4.Name = "barButtonItem4";
+            this.barButtonItem4.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem4_ItemClick);
+            // 
+            // barButtonItem5
+            // 
+            this.barButtonItem5.Caption = "Calculator";
+            this.barButtonItem5.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem5.Glyph")));
+            this.barButtonItem5.Id = 30;
+            this.barButtonItem5.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem5.LargeGlyph")));
+            this.barButtonItem5.Name = "barButtonItem5";
+            this.barButtonItem5.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem5_ItemClick);
+            // 
+            // barButtonItem6
+            // 
+            this.barButtonItem6.Caption = "barButtonItem6";
+            this.barButtonItem6.Id = 35;
+            this.barButtonItem6.Name = "barButtonItem6";
+            // 
+            // btn_shutdown
+            // 
+            this.btn_shutdown.Caption = "Enter time(s)";
+            this.btn_shutdown.Edit = this.repositoryItemTextEdit1;
+            this.btn_shutdown.EditValue = "";
+            this.btn_shutdown.Glyph = ((System.Drawing.Image)(resources.GetObject("btn_shutdown.Glyph")));
+            this.btn_shutdown.Id = 36;
+            this.btn_shutdown.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btn_shutdown.LargeGlyph")));
+            this.btn_shutdown.Name = "btn_shutdown";
+            // 
+            // repositoryItemTextEdit1
+            // 
+            this.repositoryItemTextEdit1.AutoHeight = false;
+            this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
+            // 
+            // barButtonItem7
+            // 
+            this.barButtonItem7.ActAsDropDown = true;
+            this.barButtonItem7.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
+            this.barButtonItem7.Caption = "Shutdown";
+            this.barButtonItem7.DropDownControl = this.popupControlContainer2;
+            this.barButtonItem7.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem7.Glyph")));
+            this.barButtonItem7.Id = 39;
+            this.barButtonItem7.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem7.LargeGlyph")));
+            this.barButtonItem7.Name = "barButtonItem7";
+            // 
+            // popupControlContainer2
+            // 
+            this.popupControlContainer2.AutoSize = true;
+            this.popupControlContainer2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.popupControlContainer2.Controls.Add(this.label2);
+            this.popupControlContainer2.Controls.Add(this.lbShutdown);
+            this.popupControlContainer2.Controls.Add(this.tb_Shutdown);
+            this.popupControlContainer2.Location = new System.Drawing.Point(768, 70);
+            this.popupControlContainer2.Name = "popupControlContainer2";
+            this.popupControlContainer2.Ribbon = this.ribbonControl1;
+            this.popupControlContainer2.Size = new System.Drawing.Size(246, 31);
+            this.popupControlContainer2.TabIndex = 12;
+            this.popupControlContainer2.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(223, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(20, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "(s)";
+            // 
+            // lbShutdown
+            // 
+            this.lbShutdown.AutoSize = true;
+            this.lbShutdown.Location = new System.Drawing.Point(6, 10);
+            this.lbShutdown.Name = "lbShutdown";
+            this.lbShutdown.Size = new System.Drawing.Size(71, 13);
+            this.lbShutdown.TabIndex = 1;
+            this.lbShutdown.Text = "Enter Time(s)";
+            // 
+            // tb_Shutdown
+            // 
+            this.tb_Shutdown.Location = new System.Drawing.Point(83, 7);
+            this.tb_Shutdown.Name = "tb_Shutdown";
+            this.tb_Shutdown.Size = new System.Drawing.Size(134, 21);
+            this.tb_Shutdown.TabIndex = 0;
+            this.tb_Shutdown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_Shutdown_KeyDown);
             // 
             // ribbonPage1
             // 
@@ -321,8 +439,18 @@ namespace TotalCommander
             // 
             this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem2);
             this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem3);
+            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem4);
+            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem5);
+            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem7);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             this.ribbonPageGroup1.Text = "ribbonPageGroup1";
+            // 
+            // repositoryItemMemoExEdit1
+            // 
+            this.repositoryItemMemoExEdit1.AutoHeight = false;
+            this.repositoryItemMemoExEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemMemoExEdit1.Name = "repositoryItemMemoExEdit1";
             // 
             // contextMenu
             // 
@@ -335,53 +463,58 @@ namespace TotalCommander
             this.menuItemDelete,
             this.menuItemNewFolder});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(178, 136);
+            this.contextMenu.Size = new System.Drawing.Size(182, 182);
             // 
             // menuItemOpen
             // 
             this.menuItemOpen.Enabled = false;
             this.menuItemOpen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.menuItemOpen.Image = ((System.Drawing.Image)(resources.GetObject("menuItemOpen.Image")));
             this.menuItemOpen.Name = "menuItemOpen";
-            this.menuItemOpen.Size = new System.Drawing.Size(177, 22);
+            this.menuItemOpen.Size = new System.Drawing.Size(181, 26);
             this.menuItemOpen.Text = "Open";
             // 
             // menuItemCopy
             // 
             this.menuItemCopy.Enabled = false;
+            this.menuItemCopy.Image = ((System.Drawing.Image)(resources.GetObject("menuItemCopy.Image")));
             this.menuItemCopy.Name = "menuItemCopy";
             this.menuItemCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.menuItemCopy.Size = new System.Drawing.Size(177, 22);
+            this.menuItemCopy.Size = new System.Drawing.Size(181, 26);
             this.menuItemCopy.Text = "Copy";
             // 
             // menuItemCut
             // 
             this.menuItemCut.Enabled = false;
+            this.menuItemCut.Image = ((System.Drawing.Image)(resources.GetObject("menuItemCut.Image")));
             this.menuItemCut.Name = "menuItemCut";
             this.menuItemCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.menuItemCut.Size = new System.Drawing.Size(177, 22);
+            this.menuItemCut.Size = new System.Drawing.Size(181, 26);
             this.menuItemCut.Text = "Cut";
             // 
             // menuItemPaste
             // 
             this.menuItemPaste.Enabled = false;
+            this.menuItemPaste.Image = ((System.Drawing.Image)(resources.GetObject("menuItemPaste.Image")));
             this.menuItemPaste.Name = "menuItemPaste";
             this.menuItemPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.menuItemPaste.Size = new System.Drawing.Size(177, 22);
+            this.menuItemPaste.Size = new System.Drawing.Size(181, 26);
             this.menuItemPaste.Text = "Paste";
             // 
             // menuItemDelete
             // 
             this.menuItemDelete.Enabled = false;
+            this.menuItemDelete.Image = ((System.Drawing.Image)(resources.GetObject("menuItemDelete.Image")));
             this.menuItemDelete.Name = "menuItemDelete";
             this.menuItemDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.menuItemDelete.Size = new System.Drawing.Size(177, 22);
+            this.menuItemDelete.Size = new System.Drawing.Size(181, 26);
             this.menuItemDelete.Text = "Delete";
             // 
             // menuItemNewFolder
             // 
             this.menuItemNewFolder.Name = "menuItemNewFolder";
             this.menuItemNewFolder.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.menuItemNewFolder.Size = new System.Drawing.Size(177, 22);
+            this.menuItemNewFolder.Size = new System.Drawing.Size(181, 26);
             this.menuItemNewFolder.Text = "New Folder";
             // 
             // statusStrip1
@@ -393,7 +526,9 @@ namespace TotalCommander
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
             this.toolStripStatusLabel4,
-            this.toolStripStatusLabel5});
+            this.toolStripStatusLabel5,
+            this.ttlbShutdown,
+            this.prShutdown});
             this.statusStrip1.Location = new System.Drawing.Point(0, 606);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
@@ -444,6 +579,19 @@ namespace TotalCommander
             this.toolStripStatusLabel5.Size = new System.Drawing.Size(156, 17);
             this.toolStripStatusLabel5.Text = "Ctrl+N New Folder";
             // 
+            // ttlbShutdown
+            // 
+            this.ttlbShutdown.Name = "ttlbShutdown";
+            this.ttlbShutdown.Size = new System.Drawing.Size(91, 17);
+            this.ttlbShutdown.Text = "Shutdown after:";
+            this.ttlbShutdown.Visible = false;
+            // 
+            // prShutdown
+            // 
+            this.prShutdown.Name = "prShutdown";
+            this.prShutdown.Size = new System.Drawing.Size(100, 16);
+            this.prShutdown.Visible = false;
+            // 
             // splitMain
             // 
             this.splitMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -455,6 +603,11 @@ namespace TotalCommander
             this.splitMain.SplitterWidth = 3;
             this.splitMain.TabIndex = 4;
             // 
+            // timershutdown
+            // 
+            this.timershutdown.Interval = 1000;
+            this.timershutdown.Tick += new System.EventHandler(this.timershutdown_Tick);
+            // 
             // Form1
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -462,6 +615,7 @@ namespace TotalCommander
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1179, 628);
             this.Controls.Add(this.splitMain);
+            this.Controls.Add(this.popupControlContainer2);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.ribbonControl1);
             this.Name = "Form1";
@@ -470,6 +624,11 @@ namespace TotalCommander
             this.Text = "Total Commander";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupControlContainer2)).EndInit();
+            this.popupControlContainer2.ResumeLayout(false);
+            this.popupControlContainer2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoExEdit1)).EndInit();
             this.contextMenu.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -524,6 +683,20 @@ namespace TotalCommander
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem4;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem5;
+        private System.Windows.Forms.Timer timershutdown;
+        private DevExpress.XtraBars.BarEditItem btn_shutdown;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem6;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit repositoryItemMemoExEdit1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem7;
+        private DevExpress.XtraBars.PopupControlContainer popupControlContainer2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbShutdown;
+        private System.Windows.Forms.TextBox tb_Shutdown;
+        private System.Windows.Forms.ToolStripStatusLabel ttlbShutdown;
+        private System.Windows.Forms.ToolStripProgressBar prShutdown;
     }
 }
 
