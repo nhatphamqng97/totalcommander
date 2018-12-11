@@ -68,13 +68,6 @@ namespace TotalCommander
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.repositoryItemMemoExEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
-            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemCopy = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemCut = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemPaste = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemNewFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -92,7 +85,6 @@ namespace TotalCommander
             ((System.ComponentModel.ISupportInitialize)(this.popupControlContainer2)).BeginInit();
             this.popupControlContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoExEdit1)).BeginInit();
-            this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.SuspendLayout();
@@ -452,66 +444,6 @@ namespace TotalCommander
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemMemoExEdit1.Name = "repositoryItemMemoExEdit1";
             // 
-            // contextMenu
-            // 
-            this.contextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuItemOpen,
-            this.menuItemCopy,
-            this.menuItemCut,
-            this.menuItemPaste,
-            this.menuItemDelete,
-            this.menuItemNewFolder});
-            this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(178, 136);
-            // 
-            // menuItemOpen
-            // 
-            this.menuItemOpen.Enabled = false;
-            this.menuItemOpen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.menuItemOpen.Name = "menuItemOpen";
-            this.menuItemOpen.Size = new System.Drawing.Size(177, 22);
-            this.menuItemOpen.Text = "Open";
-            // 
-            // menuItemCopy
-            // 
-            this.menuItemCopy.Enabled = false;
-            this.menuItemCopy.Name = "menuItemCopy";
-            this.menuItemCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.menuItemCopy.Size = new System.Drawing.Size(177, 22);
-            this.menuItemCopy.Text = "Copy";
-            // 
-            // menuItemCut
-            // 
-            this.menuItemCut.Enabled = false;
-            this.menuItemCut.Name = "menuItemCut";
-            this.menuItemCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.menuItemCut.Size = new System.Drawing.Size(177, 22);
-            this.menuItemCut.Text = "Cut";
-            // 
-            // menuItemPaste
-            // 
-            this.menuItemPaste.Enabled = false;
-            this.menuItemPaste.Name = "menuItemPaste";
-            this.menuItemPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.menuItemPaste.Size = new System.Drawing.Size(177, 22);
-            this.menuItemPaste.Text = "Paste";
-            // 
-            // menuItemDelete
-            // 
-            this.menuItemDelete.Enabled = false;
-            this.menuItemDelete.Name = "menuItemDelete";
-            this.menuItemDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.menuItemDelete.Size = new System.Drawing.Size(177, 22);
-            this.menuItemDelete.Text = "Delete";
-            // 
-            // menuItemNewFolder
-            // 
-            this.menuItemNewFolder.Name = "menuItemNewFolder";
-            this.menuItemNewFolder.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.menuItemNewFolder.Size = new System.Drawing.Size(177, 22);
-            this.menuItemNewFolder.Text = "New Folder";
-            // 
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -624,7 +556,6 @@ namespace TotalCommander
             this.popupControlContainer2.ResumeLayout(false);
             this.popupControlContainer2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoExEdit1)).EndInit();
-            this.contextMenu.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).EndInit();
@@ -638,13 +569,6 @@ namespace TotalCommander
 
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControl1;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
-        private System.Windows.Forms.ContextMenuStrip contextMenu;
-        private System.Windows.Forms.ToolStripMenuItem menuItemOpen;
-        private System.Windows.Forms.ToolStripMenuItem menuItemCopy;
-        private System.Windows.Forms.ToolStripMenuItem menuItemCut;
-        private System.Windows.Forms.ToolStripMenuItem menuItemPaste;
-        private System.Windows.Forms.ToolStripMenuItem menuItemDelete;
-        private System.Windows.Forms.ToolStripMenuItem menuItemNewFolder;
         private DevExpress.XtraBars.BarButtonItem btnPack;
         private DevExpress.XtraBars.BarButtonItem btnUnPack;
         private System.Windows.Forms.StatusStrip statusStrip1;

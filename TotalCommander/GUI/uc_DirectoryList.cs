@@ -79,14 +79,11 @@ namespace TotalCommander.GUI
             tvMain.PathSeparator = "C:\\";
         }
 
-        public uc_DirectoryList(ContextMenuStrip contextMenu)
+        public uc_DirectoryList()
         {
             InitializeComponent();
             this.listBack = new Stack<string>();
-
             this.listForward = new Stack<string>();
-
-            this.contextMenu = contextMenu;
 
             BLL.MyTreeView.Instances.initTreeView(tvMain);
         }
