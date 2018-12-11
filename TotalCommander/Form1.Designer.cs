@@ -463,58 +463,53 @@ namespace TotalCommander
             this.menuItemDelete,
             this.menuItemNewFolder});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(182, 182);
+            this.contextMenu.Size = new System.Drawing.Size(178, 136);
             // 
             // menuItemOpen
             // 
             this.menuItemOpen.Enabled = false;
             this.menuItemOpen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.menuItemOpen.Image = ((System.Drawing.Image)(resources.GetObject("menuItemOpen.Image")));
             this.menuItemOpen.Name = "menuItemOpen";
-            this.menuItemOpen.Size = new System.Drawing.Size(181, 26);
+            this.menuItemOpen.Size = new System.Drawing.Size(177, 22);
             this.menuItemOpen.Text = "Open";
             // 
             // menuItemCopy
             // 
             this.menuItemCopy.Enabled = false;
-            this.menuItemCopy.Image = ((System.Drawing.Image)(resources.GetObject("menuItemCopy.Image")));
             this.menuItemCopy.Name = "menuItemCopy";
             this.menuItemCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.menuItemCopy.Size = new System.Drawing.Size(181, 26);
+            this.menuItemCopy.Size = new System.Drawing.Size(177, 22);
             this.menuItemCopy.Text = "Copy";
             // 
             // menuItemCut
             // 
             this.menuItemCut.Enabled = false;
-            this.menuItemCut.Image = ((System.Drawing.Image)(resources.GetObject("menuItemCut.Image")));
             this.menuItemCut.Name = "menuItemCut";
             this.menuItemCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.menuItemCut.Size = new System.Drawing.Size(181, 26);
+            this.menuItemCut.Size = new System.Drawing.Size(177, 22);
             this.menuItemCut.Text = "Cut";
             // 
             // menuItemPaste
             // 
             this.menuItemPaste.Enabled = false;
-            this.menuItemPaste.Image = ((System.Drawing.Image)(resources.GetObject("menuItemPaste.Image")));
             this.menuItemPaste.Name = "menuItemPaste";
             this.menuItemPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.menuItemPaste.Size = new System.Drawing.Size(181, 26);
+            this.menuItemPaste.Size = new System.Drawing.Size(177, 22);
             this.menuItemPaste.Text = "Paste";
             // 
             // menuItemDelete
             // 
             this.menuItemDelete.Enabled = false;
-            this.menuItemDelete.Image = ((System.Drawing.Image)(resources.GetObject("menuItemDelete.Image")));
             this.menuItemDelete.Name = "menuItemDelete";
             this.menuItemDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.menuItemDelete.Size = new System.Drawing.Size(181, 26);
+            this.menuItemDelete.Size = new System.Drawing.Size(177, 22);
             this.menuItemDelete.Text = "Delete";
             // 
             // menuItemNewFolder
             // 
             this.menuItemNewFolder.Name = "menuItemNewFolder";
             this.menuItemNewFolder.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.menuItemNewFolder.Size = new System.Drawing.Size(181, 26);
+            this.menuItemNewFolder.Size = new System.Drawing.Size(177, 22);
             this.menuItemNewFolder.Text = "New Folder";
             // 
             // statusStrip1

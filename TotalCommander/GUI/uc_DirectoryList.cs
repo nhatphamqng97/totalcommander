@@ -319,7 +319,181 @@ namespace TotalCommander.GUI
 
         #endregion
 
-        #region Button Click
+        #region Rightclick Menu event Listview
+
+        private void contextMenu_Opening(object sender, CancelEventArgs e)
+        {
+            if (getCopyPath != null)
+            {
+                if (lvMain.SelectedItems.Count == 0)
+                    menuItemPaste.Enabled = false;
+                else
+                    menuItemPaste.Enabled = true;
+
+                menuItemOpen.Enabled = false;
+                menuItemPack.Enabled = false;
+                menuItemUnpack.Enabled = false;
+                menuItemCopy.Enabled = false;
+                menuItemCut.Enabled = false;
+                menuItemDelete.Enabled = false;
+
+                if (lvMain.SelectedItems.Count > 0)
+                {
+                    menuItemOpen.Enabled = true;
+                    if (!cbPath.Text.Equals("This PC"))
+                    {
+                        menuItemPack.Enabled = true;
+                        menuItemUnpack.Enabled = true;
+                        menuItemCopy.Enabled = true;
+                        menuItemCut.Enabled = true;
+                        menuItemDelete.Enabled = true;
+                    }
+                }
+            }
+        }
+
+        private void menuItemOpen_Click(object sender, EventArgs e)
+        {
+            lvMain_DoubleClick(null, null);
+        }
+
+        private void menuItemRefresh_Click(object sender, EventArgs e)
+        {
+            this.showDirectoryAndFiles(this.listBack.Peek());
+        }
+
+        private void menuItemCopy_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (getCopyAction != null)
+                {
+                    List<string> listPathCopy = new List<string>();
+
+                    foreach (ListViewItem item in lvMain.SelectedItems)
+                        listPathCopy.Add(item.Tag.ToString());
+
+                    getCopyAction(listPathCopy, true);
+                }
+
+                menuItemPaste.Enabled = true;
+            }
+            catch (Exception ex) { }
+        }
+
+        private void menuItemCut_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (getCopyAction != null)
+                {
+                    List<string> listPathCopy = new List<string>();
+
+                    foreach (ListViewItem item in lvMain.SelectedItems)
+                        listPathCopy.Add(item.Tag.ToString());
+                    getCopyAction(listPathCopy, false);
+                }
+
+                menuItemPaste.Enabled = true;
+            }
+            catch (Exception ex) { }
+        }
+
+        private void menuItemPaste_Click(object sender, EventArgs e)
+        {
+            if (getPasteAction != null)
+            {
+                if (!Directory.Exists(cbPath.Text))//Nếu pastePath không tồn tại thì thoát
+                    return;
+
+                this.task = Task.Run(() => getPasteAction(cbPath.Text));
+                this.timer.Start();
+            }
+
+            showDirectoryAndFiles(this.listBack.Peek());
+        }
+
+        public void menuItemDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<string> listPath = new List<string>();
+
+                foreach (ListViewItem item in lvMain.SelectedItems)
+                    listPath.Add(item.Tag.ToString());
+
+                if (BLL.ClassBLL.Instances.deleteSendToRecycleBin(listPath))
+                {
+                    foreach (ListViewItem item in lvMain.SelectedItems)
+                        lvMain.Items.RemoveByKey(item.Name);
+                }
+
+                menuItemDelete.Enabled = false;
+            }
+            catch (Exception ex) { }
+        }
+
+        private void menuItemNew_Click(object sender, EventArgs e)
+        {
+            subMenuItemNewFolder.Image = BLL.ShellIcon.GetSmallFolderIcon().ToBitmap();
+            subMenuItemNewTextDocument.Image = BLL.ShellIcon.GetSmallIconFromExtension(".txt").ToBitmap();
+        }
+
+        private void subMenuItemNewFolder_Click(object sender, EventArgs e)
+        {
+            string newFolderName;
+            string newFolderPath;
+
+            int i = 0;
+            do
+            {
+                if (i > 0)
+                    newFolderName = "New Folder (" + i + ")";
+                else
+                    newFolderName = "New Folder";
+
+                newFolderPath = Path.Combine(this.listBack.Peek(), newFolderName);
+
+                i++;
+            } while (Directory.Exists(newFolderPath));
+
+            Directory.CreateDirectory(newFolderPath);
+
+            BLL.ClassBLL.Instances.showDirectory(Microsoft.VisualBasic.FileIO.FileSystem.GetDirectoryInfo(newFolderPath), lvMain);
+
+            lvMain.Items[newFolderName].BeginEdit();
+
+        }
+
+        private void subMenuItemNewTextDocument_Click(object sender, EventArgs e)
+        {
+            string newFileName;
+            string newFilePath;
+
+            int i = 0;
+            do
+            {
+                if (i > 0)
+                    newFileName = "New Text Document (" + i + ").txt";
+                else
+                    newFileName = "New Text Document" + ".txt";
+
+                newFilePath = Path.Combine(this.listBack.Peek(), newFileName);
+
+                i++;
+            } while (File.Exists(newFilePath));
+
+
+            using (FileStream fs = File.Create(newFilePath)) { };
+
+            BLL.ClassBLL.Instances.showFile(Microsoft.VisualBasic.FileIO.FileSystem.GetFileInfo(newFilePath), lvMain);
+
+            lvMain.Items[newFileName].BeginEdit();
+        }
+
+        #endregion
+
+        #region Navigation Button Click
 
         public void btnBack_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
@@ -430,9 +604,7 @@ namespace TotalCommander.GUI
             this.showDirectoryAndFiles(this.listBack.Peek());
         }
 
-        #endregion
-
-        #region View Click
+        #region View Button Click
 
         private void chkNavigationPane_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
@@ -498,6 +670,8 @@ namespace TotalCommander.GUI
             else
                 btnViewTiles.Checked = true;
         }
+        #endregion
+
         #endregion
 
         private void timer1_Tick(object sender, EventArgs e)

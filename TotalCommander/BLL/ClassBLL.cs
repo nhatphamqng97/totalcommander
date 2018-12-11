@@ -25,6 +25,7 @@ namespace TotalCommander.BLL
             }
             set { ClassBLL.instances = value; }
         }
+
         #region Listview
 
         public void showViewDetail(ListView lvMain, string currentPath)

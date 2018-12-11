@@ -313,7 +313,8 @@
             this.menuItemDelete,
             this.menuItemNew});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(149, 238);
+            this.contextMenu.Size = new System.Drawing.Size(157, 260);
+            this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // menuItemOpen
             // 
@@ -321,28 +322,30 @@
             this.menuItemOpen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.menuItemOpen.Image = ((System.Drawing.Image)(resources.GetObject("menuItemOpen.Image")));
             this.menuItemOpen.Name = "menuItemOpen";
-            this.menuItemOpen.Size = new System.Drawing.Size(148, 26);
+            this.menuItemOpen.Size = new System.Drawing.Size(156, 26);
             this.menuItemOpen.Text = "Open";
+            this.menuItemOpen.Click += new System.EventHandler(this.menuItemOpen_Click);
             // 
             // menuItemRefresh
             // 
             this.menuItemRefresh.Image = global::TotalCommander.Properties.Resources.refresh;
             this.menuItemRefresh.Name = "menuItemRefresh";
-            this.menuItemRefresh.Size = new System.Drawing.Size(148, 26);
+            this.menuItemRefresh.Size = new System.Drawing.Size(156, 26);
             this.menuItemRefresh.Text = "Refresh";
+            this.menuItemRefresh.Click += new System.EventHandler(this.menuItemRefresh_Click);
             // 
             // menuItemPack
             // 
             this.menuItemPack.Image = global::TotalCommander.Properties.Resources.packIcon;
             this.menuItemPack.Name = "menuItemPack";
-            this.menuItemPack.Size = new System.Drawing.Size(148, 26);
+            this.menuItemPack.Size = new System.Drawing.Size(156, 26);
             this.menuItemPack.Text = "Pack";
             // 
             // menuItemUnpack
             // 
             this.menuItemUnpack.Image = global::TotalCommander.Properties.Resources.unpackIcon;
             this.menuItemUnpack.Name = "menuItemUnpack";
-            this.menuItemUnpack.Size = new System.Drawing.Size(148, 26);
+            this.menuItemUnpack.Size = new System.Drawing.Size(156, 26);
             this.menuItemUnpack.Text = "Unpack";
             // 
             // menuItemCopy
@@ -351,8 +354,9 @@
             this.menuItemCopy.Image = global::TotalCommander.Properties.Resources.copyIcon;
             this.menuItemCopy.Name = "menuItemCopy";
             this.menuItemCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.menuItemCopy.Size = new System.Drawing.Size(148, 26);
+            this.menuItemCopy.Size = new System.Drawing.Size(156, 26);
             this.menuItemCopy.Text = "Copy";
+            this.menuItemCopy.Click += new System.EventHandler(this.menuItemCopy_Click);
             // 
             // menuItemCut
             // 
@@ -360,8 +364,9 @@
             this.menuItemCut.Image = global::TotalCommander.Properties.Resources.cutIcon;
             this.menuItemCut.Name = "menuItemCut";
             this.menuItemCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.menuItemCut.Size = new System.Drawing.Size(148, 26);
+            this.menuItemCut.Size = new System.Drawing.Size(156, 26);
             this.menuItemCut.Text = "Cut";
+            this.menuItemCut.Click += new System.EventHandler(this.menuItemCut_Click);
             // 
             // menuItemPaste
             // 
@@ -369,8 +374,9 @@
             this.menuItemPaste.Image = global::TotalCommander.Properties.Resources.paste_32x321;
             this.menuItemPaste.Name = "menuItemPaste";
             this.menuItemPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.menuItemPaste.Size = new System.Drawing.Size(148, 26);
+            this.menuItemPaste.Size = new System.Drawing.Size(156, 26);
             this.menuItemPaste.Text = "Paste";
+            this.menuItemPaste.Click += new System.EventHandler(this.menuItemPaste_Click);
             // 
             // menuItemDelete
             // 
@@ -378,8 +384,9 @@
             this.menuItemDelete.Image = global::TotalCommander.Properties.Resources.delete_32x32;
             this.menuItemDelete.Name = "menuItemDelete";
             this.menuItemDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.menuItemDelete.Size = new System.Drawing.Size(148, 26);
+            this.menuItemDelete.Size = new System.Drawing.Size(156, 26);
             this.menuItemDelete.Text = "Delete";
+            this.menuItemDelete.Click += new System.EventHandler(this.menuItemDelete_Click);
             // 
             // menuItemNew
             // 
@@ -388,28 +395,31 @@
             this.toolStripSeparator1,
             this.subMenuItemNewTextDocument});
             this.menuItemNew.Name = "menuItemNew";
-            this.menuItemNew.Size = new System.Drawing.Size(148, 26);
+            this.menuItemNew.Size = new System.Drawing.Size(156, 26);
             this.menuItemNew.Text = "New";
+            this.menuItemNew.Click += new System.EventHandler(this.menuItemNew_Click);
             // 
             // subMenuItemNewFolder
             // 
             this.subMenuItemNewFolder.Image = global::TotalCommander.Properties.Resources.folder;
             this.subMenuItemNewFolder.Name = "subMenuItemNewFolder";
             this.subMenuItemNewFolder.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.subMenuItemNewFolder.Size = new System.Drawing.Size(154, 22);
+            this.subMenuItemNewFolder.Size = new System.Drawing.Size(158, 26);
             this.subMenuItemNewFolder.Text = "Folder";
+            this.subMenuItemNewFolder.Click += new System.EventHandler(this.subMenuItemNewFolder_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(151, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(155, 6);
             // 
             // subMenuItemNewTextDocument
             // 
             this.subMenuItemNewTextDocument.Image = global::TotalCommander.Properties.Resources.notepadIcon;
             this.subMenuItemNewTextDocument.Name = "subMenuItemNewTextDocument";
-            this.subMenuItemNewTextDocument.Size = new System.Drawing.Size(154, 22);
+            this.subMenuItemNewTextDocument.Size = new System.Drawing.Size(158, 26);
             this.subMenuItemNewTextDocument.Text = "Text Document";
+            this.subMenuItemNewTextDocument.Click += new System.EventHandler(this.subMenuItemNewTextDocument_Click);
             // 
             // imList
             // 
