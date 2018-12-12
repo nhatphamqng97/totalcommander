@@ -46,11 +46,10 @@ namespace TotalCommander
             this.btnNoneSelect = new DevExpress.XtraBars.BarButtonItem();
             this.btnDelete = new DevExpress.XtraBars.BarSubItem();
             this.btnPermanentlyDelete = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.RecycleBin = new DevExpress.XtraBars.BarButtonItem();
             this.btnRecycleDelete = new DevExpress.XtraBars.BarButtonItem();
             this.btnNotepad = new DevExpress.XtraBars.BarButtonItem();
             this.btnFind = new DevExpress.XtraBars.BarButtonItem();
-            this.btnReviewFind = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
@@ -112,10 +111,9 @@ namespace TotalCommander
             this.btnPermanentlyDelete,
             this.btnNotepad,
             this.btnFind,
-            this.btnReviewFind,
             this.barButtonItem2,
             this.barButtonItem3,
-            this.barButtonItem1,
+            this.RecycleBin,
             this.barButtonItem4,
             this.barButtonItem5,
             this.barButtonItem6,
@@ -187,6 +185,7 @@ namespace TotalCommander
             this.btnCopy.Id = 1;
             this.btnCopy.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnCopy.LargeGlyph")));
             this.btnCopy.Name = "btnCopy";
+            this.btnCopy.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCopy_ItemClick);
             // 
             // btnCut
             // 
@@ -196,6 +195,7 @@ namespace TotalCommander
             this.btnCut.Id = 2;
             this.btnCut.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnCut.LargeGlyph")));
             this.btnCut.Name = "btnCut";
+            this.btnCut.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCut_ItemClick);
             // 
             // btnPaste
             // 
@@ -205,6 +205,7 @@ namespace TotalCommander
             this.btnPaste.Id = 3;
             this.btnPaste.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPaste.LargeGlyph")));
             this.btnPaste.Name = "btnPaste";
+            this.btnPaste.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPaste_ItemClick);
             // 
             // btnRename
             // 
@@ -214,6 +215,7 @@ namespace TotalCommander
             this.btnRename.Id = 5;
             this.btnRename.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnRename.LargeGlyph")));
             this.btnRename.Name = "btnRename";
+            this.btnRename.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRename_ItemClick);
             // 
             // btnSelectAll
             // 
@@ -221,6 +223,7 @@ namespace TotalCommander
             this.btnSelectAll.Glyph = ((System.Drawing.Image)(resources.GetObject("btnSelectAll.Glyph")));
             this.btnSelectAll.Id = 6;
             this.btnSelectAll.Name = "btnSelectAll";
+            this.btnSelectAll.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSelectAll_ItemClick);
             // 
             // btnNoneSelect
             // 
@@ -228,6 +231,7 @@ namespace TotalCommander
             this.btnNoneSelect.Glyph = ((System.Drawing.Image)(resources.GetObject("btnNoneSelect.Glyph")));
             this.btnNoneSelect.Id = 7;
             this.btnNoneSelect.Name = "btnNoneSelect";
+            this.btnNoneSelect.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNoneSelect_ItemClick);
             // 
             // btnDelete
             // 
@@ -238,7 +242,7 @@ namespace TotalCommander
             this.btnDelete.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnDelete.LargeGlyph")));
             this.btnDelete.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.btnPermanentlyDelete),
-            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barButtonItem1, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.RecycleBin, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
             this.btnDelete.Name = "btnDelete";
             // 
             // btnPermanentlyDelete
@@ -248,13 +252,15 @@ namespace TotalCommander
             this.btnPermanentlyDelete.Id = 15;
             this.btnPermanentlyDelete.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPermanentlyDelete.LargeGlyph")));
             this.btnPermanentlyDelete.Name = "btnPermanentlyDelete";
+            this.btnPermanentlyDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPermanentlyDelete_ItemClick);
             // 
-            // barButtonItem1
+            // RecycleBin
             // 
-            this.barButtonItem1.Caption = "Recycle Bin";
-            this.barButtonItem1.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.Glyph")));
-            this.barButtonItem1.Id = 28;
-            this.barButtonItem1.Name = "barButtonItem1";
+            this.RecycleBin.Caption = "Recycle Bin";
+            this.RecycleBin.Glyph = ((System.Drawing.Image)(resources.GetObject("RecycleBin.Glyph")));
+            this.RecycleBin.Id = 28;
+            this.RecycleBin.Name = "RecycleBin";
+            this.RecycleBin.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.RecycleBin_ItemClick);
             // 
             // btnRecycleDelete
             // 
@@ -276,15 +282,7 @@ namespace TotalCommander
             this.btnFind.Id = 23;
             this.btnFind.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnFind.LargeGlyph")));
             this.btnFind.Name = "btnFind";
-            // 
-            // btnReviewFind
-            // 
-            this.btnReviewFind.Caption = "Review Find";
-            this.btnReviewFind.Enabled = false;
-            this.btnReviewFind.Glyph = ((System.Drawing.Image)(resources.GetObject("btnReviewFind.Glyph")));
-            this.btnReviewFind.Id = 24;
-            this.btnReviewFind.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnReviewFind.LargeGlyph")));
-            this.btnReviewFind.Name = "btnReviewFind";
+            this.btnFind.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnFind_ItemClick);
             // 
             // barButtonItem2
             // 
@@ -411,7 +409,6 @@ namespace TotalCommander
             this.Group2.ItemLinks.Add(this.btnDelete, true);
             this.Group2.ItemLinks.Add(this.btnRename);
             this.Group2.ItemLinks.Add(this.btnFind, true);
-            this.Group2.ItemLinks.Add(this.btnReviewFind);
             this.Group2.ItemLinks.Add(this.btnPack, true);
             this.Group2.ItemLinks.Add(this.btnUnPack);
             this.Group2.ItemLinks.Add(this.btnSelectAll, true);
@@ -530,6 +527,10 @@ namespace TotalCommander
             this.splitMain.SplitterWidth = 3;
             this.splitMain.TabIndex = 4;
             // 
+            // timer
+            // 
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // timershutdown
             // 
             this.timershutdown.Interval = 1000;
@@ -597,11 +598,10 @@ namespace TotalCommander
         private DevExpress.XtraBars.BarButtonItem btnNotepad;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup Group2;
         private DevExpress.XtraBars.BarButtonItem btnFind;
-        private DevExpress.XtraBars.BarButtonItem btnReviewFind;
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem1;
+        private DevExpress.XtraBars.BarButtonItem RecycleBin;
         private DevExpress.XtraBars.BarButtonItem barButtonItem4;
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private System.Windows.Forms.Timer timershutdown;

@@ -20,6 +20,8 @@ namespace TotalCommander
         private GUI.uc_DirectoryList gui2;
         private List<string> listCopyPath { get; set; }
 
+        private Task task;
+
         public Form1()
         {
             InitializeComponent();
@@ -35,7 +37,7 @@ namespace TotalCommander
             gui1.getCopyPath = new GUI.uc_DirectoryList.DgetCopyPath(pushCopyPath);
             gui1.getPasteAction = new GUI.uc_DirectoryList.DgetPasteAction(pasteAction);
             gui1.getRefreshAll = new GUI.uc_DirectoryList.DgetRefreshAll(refreshAll);
-            
+
             gui1.setEnabledButton = new GUI.uc_DirectoryList.DsetEnabledButton(setEnabledForSelectItem);
             splitMain.Panel1.Controls.Add(gui1);
             //------------------------------------------------------------------------------------
@@ -46,7 +48,7 @@ namespace TotalCommander
             gui2.getPasteAction = new GUI.uc_DirectoryList.DgetPasteAction(pasteAction);
             gui2.getRefreshAll = new GUI.uc_DirectoryList.DgetRefreshAll(refreshAll);
 
-            
+
             gui2.setEnabledButton = new GUI.uc_DirectoryList.DsetEnabledButton(setEnabledForSelectItem);
             splitMain.Panel2.Controls.Add(gui2);
 
@@ -69,11 +71,9 @@ namespace TotalCommander
 
         #region Thao Tác Với File
 
-       
-
         private bool isCopy { get; set; }
 
-
+        //Đẩy đường dẫn ListCopyPath cho giao diện con
         private void copyAction(List<string> listPath, bool isCopy)
         {
             this.isCopy = isCopy;
@@ -83,7 +83,7 @@ namespace TotalCommander
             this.listCopyPath = listPath;
         }
 
-        //Đẩy đường dẫn cần copy(ListCopyPath) cho giao diện con
+        //Đẩy đường dẫn cần ListCopyPath cho giao diện con
         public List<string> pushCopyPath()
         {
             return this.listCopyPath;
@@ -112,6 +112,246 @@ namespace TotalCommander
 
         #endregion
 
+
+        #region Home Page Action
+        //One Page Click
+        private void chkOneScreen_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (chkOneScreen.Checked)
+            {
+                chkTwoScreen.Checked = false;
+                splitMain.Panel2Collapsed = true;//Thu Panel 2 lai
+            }
+            else
+                chkOneScreen.Checked = true;
+        }
+
+        //Two Page Click
+        private void chkTwoScreen_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (chkTwoScreen.Checked)
+            {
+                chkOneScreen.Checked = false;
+                splitMain.Panel2Collapsed = false;
+            }
+            else
+                chkTwoScreen.Checked = true;
+        }
+
+        //Packing
+        private void btnPack_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GUI.PackingForm packingForm = new GUI.PackingForm();
+            packingForm.ShowDialog();
+        }
+
+        //Copy Click
+        private void btnCopy_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            btnPaste.Enabled = true;
+
+            this.listCopyPath.Clear();
+
+            if (this.gui1.LvMain.Focused)
+            {
+                foreach (ListViewItem item in this.gui1.LvMain.SelectedItems)
+                    this.listCopyPath.Add(item.Tag.ToString());
+            }
+            else if (this.gui2.LvMain.Focused)
+            {
+                foreach (ListViewItem item in this.gui2.LvMain.SelectedItems)
+                    this.listCopyPath.Add(item.Tag.ToString());
+            }
+            this.isCopy = true;
+        }
+
+        //Cut Click
+        private void btnCut_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            btnPaste.Enabled = true;
+
+            if (this.gui1.LvMain.Focused)
+            {
+                foreach (ListViewItem item in this.gui1.LvMain.SelectedItems)
+                    this.listCopyPath.Add(item.Tag.ToString());
+            }
+            else if (this.gui2.LvMain.Focused)
+            {
+                foreach (ListViewItem item in this.gui2.LvMain.SelectedItems)
+                    this.listCopyPath.Add(item.Tag.ToString());
+            }
+
+            this.isCopy = false;
+        }
+
+        //Paste Click
+        private void btnPaste_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            btnPaste.Enabled = false;
+
+            string pathPaste = "";
+
+            if (this.gui1.LvMain.Focused)
+            {
+                pathPaste = this.gui1.ListBack.Peek();
+            }
+            else if (this.gui2.LvMain.Focused)
+            {
+                pathPaste = this.gui2.ListBack.Peek();
+            }
+            else
+            {
+                MessageBox.Show("You must focus on one UI", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            this.task = Task.Run(() => pasteAction(pathPaste));
+            timer.Start();
+        }
+
+        //Timmer xử lý sự kiên refresh
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (this.task.IsCompleted)//Các this.task = Task.Run(() khi hoàn thành
+            {
+                //Gọi hàm refresh lại tất cả các giao diện ở form1
+                refreshAll();
+                //Dừng bộ đếm khi đã kết thúc tiến trình
+                this.timer.Stop();
+            }
+        }
+
+        //Delete permanently Click
+        private void btnPermanentlyDelete_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            List<string> listPath = new List<string>();
+
+            ListView lvMain = null;
+
+            if (this.gui1.LvMain.Focused)
+                lvMain = this.gui1.LvMain;
+            else if (this.gui2.LvMain.Focused)
+                lvMain = this.gui2.LvMain;
+
+
+            //Nếu không nhận được lvMain nào thì thoát ra
+            if (lvMain == null)
+            {
+                MessageBox.Show("You must select some items", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                setEnabledForSelectItem(false);
+                return;
+            }
+
+            foreach (ListViewItem item in lvMain.SelectedItems)
+                listPath.Add(item.Tag.ToString());
+
+            if (listPath.Count > 1)
+            {
+                //Nếu có nhiều hơn 1 item thì hiển thị MessBox chung cho các items được xóa
+                if (MessageBox.Show("Are you sure you want to permanetly delete these " + listPath.Count + " items?", "Delete Multipe Items", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes
+                    && BLL.ClassBLL.Instances.deletePermanently(listPath, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs))
+                {
+                    foreach (ListViewItem item in lvMain.SelectedItems)
+                        lvMain.Items.RemoveByKey(item.Name);
+                }
+            }
+            else
+            {
+                //Nếu chỉ có một item thì hiển thị UI của nó
+                if (BLL.ClassBLL.Instances.deletePermanently(listPath, Microsoft.VisualBasic.FileIO.UIOption.AllDialogs))
+                {
+                    foreach (ListViewItem item in lvMain.SelectedItems)
+                        lvMain.Items.RemoveByKey(item.Name);
+                }
+            }
+        }
+
+        // Recycle Click
+        private void RecycleBin_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (this.gui1.LvMain.Focused)
+            {
+                this.gui1.menuItemDelete_Click(null, null);
+            }
+            else if (this.gui2.LvMain.Focused)
+            {
+                this.gui2.menuItemDelete_Click(null, null);
+            }
+            else
+            {
+                MessageBox.Show("You must select some items", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Rename Click
+        private void btnRename_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            List<string> listPath = new List<string>();
+
+            ListView lvMain;
+
+            if (this.gui1.LvMain.Focused)
+            {
+                lvMain = this.gui1.LvMain;
+                if (lvMain.SelectedItems.Count > 0)
+                {
+                    ListViewItem item = lvMain.SelectedItems[0];//Lấy Item đang được chọn
+
+                    this.gui1.oldNameItem = item.Text;
+
+                    item.BeginEdit();
+                }
+            }
+            else if (this.gui2.LvMain.Focused)
+            {
+                lvMain = this.gui2.LvMain;
+                if (lvMain.SelectedItems.Count > 0)
+                {
+                    ListViewItem item = lvMain.SelectedItems[0];//Lấy Item đang được chọn
+
+                    this.gui2.oldNameItem = item.Text;
+
+                    item.BeginEdit();
+                }
+            }
+            else
+                MessageBox.Show("You must select some items", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnFind_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnSelectAll_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (this.gui1.LvMain.Focused)
+            {
+                foreach (ListViewItem item in this.gui1.LvMain.Items)
+                    item.Selected = true;
+            }
+            else if (this.gui2.LvMain.Focused)
+            {
+                foreach (ListViewItem item in this.gui2.LvMain.Items)
+                    item.Selected = true;
+            }
+            else
+                MessageBox.Show("You must focus on one display", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnNoneSelect_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (this.gui1.LvMain.Focused)
+            {
+                foreach (ListViewItem item in this.gui1.LvMain.Items)
+                    item.Selected = false;
+            }
+            if (this.gui2.LvMain.Focused)
+            {
+                foreach (ListViewItem item in this.gui2.LvMain.Items)
+                    item.Selected = false;
+            }
+        }
+        #endregion
 
         #region Application
 
@@ -143,7 +383,7 @@ namespace TotalCommander
                 System.Diagnostics.Process process = new System.Diagnostics.Process();
                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
-                startInfo.FileName = "cmd.exe"; 
+                startInfo.FileName = "cmd.exe";
                 startInfo.Verb = "runas";
                 process.StartInfo = startInfo;
                 process.Start();
@@ -187,7 +427,7 @@ namespace TotalCommander
                 {
                     timershutdown.Enabled = false;
                     timershutdown.Stop();
-                    System.Diagnostics.Process.Start("shutdown", "-s");
+                    Process.Start("shutdown", "-s");
 
                 }
             }
@@ -195,7 +435,7 @@ namespace TotalCommander
 
         private void tb_Shutdown_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) 
+            if (e.KeyCode == Keys.Enter)
             {
                 if (tb_Shutdown.Text != null)
                 {
@@ -214,43 +454,9 @@ namespace TotalCommander
                 }
             }
         }
-
         #endregion
 
-
-            #endregion
-
-        #region Home Page Action
-        private void chkOneScreen_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (chkOneScreen.Checked)
-            {
-                chkTwoScreen.Checked = false;
-                splitMain.Panel2Collapsed = true;//Thu Panel 2 lai
-            }
-            else
-                chkOneScreen.Checked = true;
-        }
-
-
-        private void chkTwoScreen_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (chkTwoScreen.Checked)
-            {
-                chkOneScreen.Checked = false;
-                splitMain.Panel2Collapsed = false;
-            }
-            else
-                chkTwoScreen.Checked = true;
-        }
-
-        //Packing
-        private void btnPack_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            GUI.PackingForm packingForm = new GUI.PackingForm();
-            packingForm.ShowDialog();
-        }
         #endregion
-
     }
+
 }
