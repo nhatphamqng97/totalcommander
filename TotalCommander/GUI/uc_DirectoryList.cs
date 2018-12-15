@@ -314,6 +314,72 @@ namespace TotalCommander.GUI
             }
         }
 
+        #region Rename
+
+        private void lvMain_AfterLabelEdit(object sender, LabelEditEventArgs e)
+        {
+            try
+            {
+                if (e.Label != null)
+                {
+                    ListViewItem item = lvMain.Items[this.oldNameItem];
+
+                    if (item.Name.Contains(':'))
+                    {
+                        MessageBox.Show("Sorry!, You can't rename the drive", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        //Nếu folder cần sửa là một drive thì thông báo và không cho sửa tên
+                        e.CancelEdit = true;
+
+                        return;
+                    }
+
+                    if (item.Tag != null)
+                    {
+                        string oldPath = item.Tag.ToString();
+
+                        string extension = "";
+
+                        if (File.Exists(oldPath))
+                            extension = item.Tag.ToString().Substring(item.Tag.ToString().LastIndexOf('.'));
+
+                        string newPath = Path.Combine(oldPath.Remove(oldPath.LastIndexOf('\\') + 1), e.Label) + extension;
+
+                        if (e.Label != item.Text && (Directory.Exists(newPath) || File.Exists(newPath)))
+                        {
+                            MessageBox.Show("The folder name already exists! Please try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            e.CancelEdit = true;
+
+                            lvMain.Items[e.Item].BeginEdit();
+
+                            return;
+                        }
+
+                        if (Directory.Exists(oldPath))
+                            Microsoft.VisualBasic.FileIO.FileSystem.RenameDirectory(item.Tag.ToString(), e.Label);
+                        else
+                            Microsoft.VisualBasic.FileIO.FileSystem.RenameFile(item.Tag.ToString(), e.Label + extension);
+
+                        item.Tag = newPath;
+                    }
+                }
+            }
+            catch (Exception ex) { e.CancelEdit = true; }
+        }
+
+        private void lvMain_BeforeLabelEdit(object sender, LabelEditEventArgs e)
+        {
+            if (lvMain.SelectedItems.Count > 0)
+            {
+                ListViewItem item = lvMain.SelectedItems[0];//Lấy Item đang được chọn
+
+                this.oldNameItem = item.Name;
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region Rightclick Menu event Listview
@@ -669,6 +735,52 @@ namespace TotalCommander.GUI
         }
         #endregion
 
+        #endregion
+
+        #region ComboboxEvent
+
+        public void cbPath_Properties_QueryCloseUp(object sender, CancelEventArgs e)
+        {
+
+
+            if (cbPath.Text.Equals(listBack.Peek()))//Nếu không thay đổi đường dẫn thì không làm gì
+                return;
+            try
+            {
+                this.listBack.Push(cbPath.Text);
+
+                lvMain.Clear();
+
+                showDirectoryAndFiles(this.listBack.Peek());
+            }
+            catch (Exception ex)
+            {
+                btnBack_ItemClick(null, null);
+                MessageBox.Show("The path is not exists!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void cbPath_Properties_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                if (!cbPath.Equals("This PC") || Directory.Exists(cbPath.Text))//Nếu đường dẫn khác This PC hoặc đường dẫn đó tồn tại thì mới được làm việc ngược lại thông báo và thoát
+                    cbPath_Properties_QueryCloseUp(null, null);
+                else
+                {
+                    cbPath.Text = this.listBack.Peek();
+                    MessageBox.Show("The path is not exists!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void cbPath_TextChanged(object sender, EventArgs e)
+        {
+            if (cbPath.Text.Equals("This PC"))
+                menuItemNew.Enabled = false;
+            else
+                menuItemNew.Enabled = true;
+        }
         #endregion
 
         private void timer1_Tick(object sender, EventArgs e)
