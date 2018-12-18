@@ -152,6 +152,7 @@ namespace TotalCommander
             this.btnUnPack.Id = 2;
             this.btnUnPack.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnUnPack.LargeGlyph")));
             this.btnUnPack.Name = "btnUnPack";
+            this.btnUnPack.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnUnPack_ItemClick);
             // 
             // skinRibbonGalleryBarItem1
             // 

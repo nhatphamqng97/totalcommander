@@ -457,6 +457,41 @@ namespace TotalCommander
         #endregion
 
         #endregion
+
+        private void btnUnPack_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GUI.UnPacking unpackingForm = new GUI.UnPacking();
+            unpackingForm.ShowDialog();
+
+            if (unpackingForm.isSuccessful)
+            {
+
+                string pathReturn = unpackingForm.pathFolder;
+
+                this.gui1.CbPath.Text = pathReturn.Remove(pathReturn.LastIndexOf('\\'));
+
+                #region LoadListView
+                try
+                {
+                    this.gui1.ListBack.Push(this.gui1.CbPath.Text);
+
+                    this.gui1.LvMain.Clear();
+
+                    this.gui1.showDirectoryAndFiles(this.gui1.ListBack.Peek());
+                }
+                catch (Exception ex)
+                {
+                    this.gui1.btnBack_ItemClick(null, null);
+                    MessageBox.Show("The path is not exists!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                #endregion
+
+                this.gui1.LvMain.Focus();
+                ListViewItem item = this.gui1.LvMain.Items[pathReturn.Substring(pathReturn.LastIndexOf('\\') + 1)];
+                item.Selected = true;
+                item.Focused = true;
+            }
+        }
     }
 
 }
