@@ -16,20 +16,26 @@ namespace TotalCommander.GUI
         {
             InitializeComponent();
         }
+
+        public void setPathUnPacking(string path)
+        {
+            txtSourcePath.Text = path;
+
+            //Tách lấy tên của file cần giải nén
+            string pathSubstring = path.Substring(path.LastIndexOf('\\') + 1);
+
+            txtFolderName.Text = pathSubstring.Remove(pathSubstring.LastIndexOf('.'));
+
+            txtDestinationPath.Text = path.Remove(path.LastIndexOf('\\'));
+        }
+
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialogFile = new OpenFileDialog();
             if (dialogFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string path = dialogFile.FileName;
-                txtSourcePath.Text = path;
-
-                //Tách lấy tên của file cần giải nén
-                string pathSubstring = path.Substring(path.LastIndexOf('\\') + 1);
-
-                txtFolderName.Text = pathSubstring.Remove(pathSubstring.LastIndexOf('.'));
-
-                txtDestinationPath.Text = path.Remove(path.LastIndexOf('\\'));
+                setPathUnPacking(path);
             }
         }
 

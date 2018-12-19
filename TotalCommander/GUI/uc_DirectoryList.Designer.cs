@@ -301,6 +301,7 @@
             this.lvMain.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.lvMain_AfterLabelEdit);
             this.lvMain.BeforeLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.lvMain_BeforeLabelEdit);
             this.lvMain.SelectedIndexChanged += new System.EventHandler(this.lvMain_SelectedIndexChanged);
+//            this.lvMain.Click += new System.EventHandler(this.lvMain_Click);
             this.lvMain.DoubleClick += new System.EventHandler(this.lvMain_DoubleClick);
             this.lvMain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvMain_KeyDown);
             // 
@@ -345,6 +346,7 @@
             this.menuItemPack.Name = "menuItemPack";
             this.menuItemPack.Size = new System.Drawing.Size(148, 26);
             this.menuItemPack.Text = "Pack";
+            this.menuItemPack.Click += new System.EventHandler(this.menuItemPack_Click);
             // 
             // menuItemUnpack
             // 
@@ -352,6 +354,7 @@
             this.menuItemUnpack.Name = "menuItemUnpack";
             this.menuItemUnpack.Size = new System.Drawing.Size(148, 26);
             this.menuItemUnpack.Text = "Unpack";
+            this.menuItemUnpack.Click += new System.EventHandler(this.menuItemUnpack_Click);
             // 
             // menuItemCopy
             // 

@@ -54,24 +54,19 @@ namespace TotalCommander.GUI
 
         #region Button Events
 
-        private void btnBrowse_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog dialogFolder = new FolderBrowserDialog();
-            if (dialogFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string path = dialogFolder.SelectedPath; ;
+        public void setPathPacking(string path) {
+           
+            txtFolderPath.Text = path;
 
-                txtFolderPath.Text = path;
+            //Lấy đường dẫn tới thư mục chứa thư mục mình cần giải nén
+            this.Path = path.Remove(path.LastIndexOf('\\'));
 
-                //Lấy đường dẫn tới thư mục chứa thư mục mình cần giải nén
-                this.Path = path.Remove(path.LastIndexOf('\\'));
 
-                //Lấy tên theo tên của thư mục
-                this.txtFileName.Text = path.Substring(path.LastIndexOf('\\') + 1);
+            //Lấy tên theo tên của thư mục
+            this.txtFileName.Text = path.Substring(path.LastIndexOf('\\') + 1);
 
                 string[] directories = Directory.GetDirectories(txtFolderPath.Text);
                 string[] files = Directory.GetFiles(txtFolderPath.Text);
-
                 lbFoldersAndFiles.Items.Clear();
 
                 addItemListBox(directories, files);
@@ -82,6 +77,16 @@ namespace TotalCommander.GUI
                     btnOpen.Enabled = true;
                     btnEdit.Enabled = true;
                 }
+            
+        }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialogFolder = new FolderBrowserDialog();
+            if (dialogFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string path = dialogFolder.SelectedPath;
+                setPathPacking(path);
             }
         }
 

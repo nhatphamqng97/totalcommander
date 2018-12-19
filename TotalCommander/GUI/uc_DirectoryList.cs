@@ -796,6 +796,35 @@ namespace TotalCommander.GUI
             }
         }
 
+        private void menuItemPack_Click(object sender, EventArgs e)
+        {
+            string zipFilePath = lvMain.SelectedItems[0].Tag.ToString();//Lấy đường dẫn hiện tại
+            if (Directory.Exists(zipFilePath))
+            {
+                GUI.PackingForm pkf = new GUI.PackingForm();
+                pkf.setPathPacking(zipFilePath);
+                pkf.ShowDialog();
+            }
+            else
+                MessageBox.Show("The folder is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+
+        private void menuItemUnpack_Click(object sender, EventArgs e)
+        {
+            string unzipFilePath = lvMain.SelectedItems[0].Tag.ToString();//Lấy đường dẫn hiện tại
+            string filePacking = System.IO.Path.GetExtension(unzipFilePath);
+            if(filePacking == ".zip" || filePacking == ".rar" || filePacking == ".7z")
+            {
+                GUI.UnPacking upkf = new GUI.UnPacking();
+                upkf.setPathUnPacking(unzipFilePath);
+                upkf.ShowDialog();
+            }
+            else
+                MessageBox.Show("The folder or file not support!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+
     }
 
 }

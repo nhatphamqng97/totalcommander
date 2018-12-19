@@ -137,7 +137,6 @@ namespace TotalCommander
             else
                 chkTwoScreen.Checked = true;
         }
-
         //Packing
         private void btnPack_ItemClick(object sender, ItemClickEventArgs e)
         {
