@@ -22,6 +22,8 @@ namespace TotalCommander
 
         private Task task;
 
+
+
         public Form1()
         {
             InitializeComponent();
@@ -318,8 +320,42 @@ namespace TotalCommander
 
         private void btnFind_ItemClick(object sender, ItemClickEventArgs e)
         {
+            GUI.Find findForm;
 
+            if (this.gui1.LvMain.Focused)
+            {
+                string pathCurrent = this.gui1.ListBack.Peek();
+
+                if (pathCurrent.Equals("This PC"))
+                    pathCurrent = "C:\\";
+
+                findForm = new GUI.Find(pathCurrent);
+            }
+            else
+            {
+                string pathCurrent = this.gui2.ListBack.Peek();
+
+                if (pathCurrent.Equals("This PC"))
+                    pathCurrent = "C:\\";
+
+                findForm = new GUI.Find(pathCurrent);
+            }
+
+            if (findForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (findForm.listResultPath.Count > 0)
+                {
+                    this.gui1.CbPath.Text = "Search Results in " + findForm.pathCurrent;
+
+                    BLL.ClassBLL.Instances.showDirectoryAndFiles(findForm.listResultPath, this.gui1.LvMain);
+
+                }
+                else
+                    MessageBox.Show("No items match your search!", "Note", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
+
+      
 
         private void btnSelectAll_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -491,6 +527,8 @@ namespace TotalCommander
                 item.Focused = true;
             }
         }
+
+
     }
 
 }
